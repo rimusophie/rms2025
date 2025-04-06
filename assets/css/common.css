@@ -25,6 +25,10 @@
     color:whitesmoke;
 }
 
+.common-link a {
+    color: aqua;
+}
+
 .common-table th {
     border-width: 1px;
     border-color: white;

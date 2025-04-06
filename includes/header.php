@@ -1,3 +1,4 @@
+<!--
 <div class="row mt-3 mb-3 common-header-height">
     <div class="col text-center ps-0 pe-0">
         <button class="w-100 h-100 common-header-link align-middle">
@@ -17,3 +18,4 @@
         </button>
     </div>
 </div>
+-->
