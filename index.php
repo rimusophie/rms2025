@@ -17,7 +17,7 @@ $a = "file:///Y:/32643199_p0.jpg";
     <div class="common-container">
         <h1>一覧</h1>
         <ul class="common-link">
-            <li><a href="./pages/income_list.php">所得一覧</a></li>
+            <li><a href="./pages/incomes/income_list.php">所得一覧</a></li>
         </ul>
     </div>
 </body>

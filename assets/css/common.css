@@ -41,3 +41,19 @@
     background-color: rgba(48, 6, 22, 0.404);
     padding: 0.4rem;
 }
+
+.common-textbox {
+    background-color: rgb(80, 2, 80);
+    color: whitesmoke;
+    border-radius: 0.5rem;
+    border: 1px solid whitesmoke;
+    padding: 0.3rem;
+}
+
+.common-combobox {
+    background-color: rgb(80, 2, 80);
+    color: whitesmoke;
+    border-radius: 0.5rem;
+    border: 1px solid whitesmoke;
+    padding: 0.3rem;
+}

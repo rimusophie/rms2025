@@ -1,5 +1,5 @@
 <div class="row mt-3 common-header-height">
     <div class="col">
-        フッター
+        rms2025
     </div>
 </div>

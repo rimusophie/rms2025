@@ -1,10 +1,17 @@
 <?php
 
-require(__DIR__ . "/../utils/db.php");
+require(__DIR__ . "/../../utils/db.php");
+
+$id_to_type = [
+    0 => "不明",
+    1 => "月給",
+    2 => "賞与",
+];
 
 $pdo = get_db();
 $sql = "
     SELECT 
+        i.id AS i_id,
         i.receive_date AS i_receive_date,
         i.type AS i_type,
         i.total_amount_paid AS i_total_amount_paid,
@@ -15,26 +22,8 @@ $sql = "
     FROM
         incomes AS i 
 ";
-/*
-$sql = "
-    SELECT 
-        p.show_title AS p_show_title, 
-        p.remark AS p_remark, 
-        GROUP_CONCAT(s.name ORDER BY s.id SEPARATOR ',') AS s_name
-    FROM portfolios AS p 
-        LEFT JOIN portfolio_skills AS ps 
-            ON p.id = ps.portfolio_id 
-        LEFT JOIN skills AS s 
-            ON ps.skill_id = s.id
-    GROUP BY
-	    p.id,
-        p.show_title,
-        p.remark
-    ORDER BY
-        p.id
-";
-*/
-$result = $pdo->query($sql);
+$stmt = $pdo->query($sql);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <html lang="ja">
@@ -45,7 +34,7 @@ $result = $pdo->query($sql);
     <title>所得一覧</title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/common.css" />
+    <link rel="stylesheet" href="../../assets/css/common.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!--<script src="/assets/js/common.js"></script>-->
 </head>
@@ -53,10 +42,16 @@ $result = $pdo->query($sql);
 <body class="common-body">
     <div class="container common-container">
 <?php 
-include(__DIR__ . "/../includes/header.php");
+include(__DIR__ . "/../../includes/header.php");
 ?>
         <div class="row mt-3">
             <div class="col">所得一覧</div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <a href="./income_add.php">所得追加</a>
+            </div>
         </div>
 
         <div class="row mt-3">
@@ -71,6 +66,7 @@ include(__DIR__ . "/../includes/header.php");
                     <th>社会保険料</th>
                     <th>差引</th>
                     <th>支払者</th>
+                    <th>操作</th>
                 </tr>
 <?php
                 foreach($result as $row) {
@@ -79,7 +75,7 @@ include(__DIR__ . "/../includes/header.php");
                     echo htmlspecialchars($row["i_receive_date"], ENT_QUOTES, "UTF-8");
                     echo "</td>";
                     echo "<td>";
-                    echo htmlspecialchars($row["i_type"], ENT_QUOTES, "UTF-8");
+                    echo htmlspecialchars($id_to_type[$row["i_type"]], ENT_QUOTES, "UTF-8");
                     echo "</td>";
                     echo "<td>";
                     echo htmlspecialchars($row["i_total_amount_paid"], ENT_QUOTES, "UTF-8");
@@ -99,6 +95,9 @@ include(__DIR__ . "/../includes/header.php");
                     echo "<td>";
                     echo htmlspecialchars($row["i_payer"], ENT_QUOTES, "UTF-8");
                     echo "</td>";
+                    echo "<td>";
+                    echo "<a href=\"./income_edit.php?id={$row['i_id']}\">編集</a>";
+                    echo "</td>";
                     echo"</tr>";
                 }
 ?>
@@ -106,7 +105,7 @@ include(__DIR__ . "/../includes/header.php");
             </div>
         </div>
 <?php 
-include(__DIR__ . "/../includes/footer.php");
+include(__DIR__ . "/../../includes/footer.php");
 ?>
     </div>
 </body>
