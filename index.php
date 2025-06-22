@@ -14,10 +14,19 @@
 <?php 
 include(__DIR__ . "/includes/header.php");
 ?>
-        <h1>一覧</h1>
-        <ul>
-            <li><a href="./pages/incomes/income_list.php" class="common-link">所得一覧</a></li>
-        </ul>
+    <div class="row mt-3">
+        <div class="col">
+            <h1>一覧</h1>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <ul>
+                <li><a href="./pages/incomes/income_list.php" class="common-link">所得一覧</a></li>
+                <li><a href="./pages/qualifications/qualification_list.php" class="common-link">資格・検定一覧</a></li>
+            </ul>
+        </div>
+    </div>
 <?php 
 include(__DIR__ . "/includes/footer.php");
 ?>
