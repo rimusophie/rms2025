@@ -9,7 +9,7 @@
 }
 
 .common-header-height {
-    height: 10vh;
+    height: 4vh;
 }
 
 .common-header-link {
@@ -25,15 +25,59 @@
     color:whitesmoke;
 }
 
+.common-link {
+    color: aqua;
+}
+
 .common-table th {
     border-width: 1px;
     border-color: white;
     background-color: darkgreen;
     padding: 0.4rem;
+    text-align: center;
 }
 .common-table td {
     border-width: 1px;
     border-color: white;
     background-color: rgba(48, 6, 22, 0.404);
     padding: 0.4rem;
+}
+
+.common-textbox {
+    background-color: rgb(80, 2, 80);
+    color: whitesmoke;
+    border-radius: 0.5rem;
+    border: 1px solid whitesmoke;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.common-combobox {
+    background-color: rgb(80, 2, 80);
+    color: whitesmoke;
+    border-radius: 0.5rem;
+    border: 1px solid whitesmoke;
+    padding: 0.3rem;
+}
+
+.common-textbox[type="number"] {
+    text-align: right;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.common-textbox[type="number"]::-webkit-inner-spin-button,
+.common-textbox[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.common-button {
+    background-color: rgb(2, 25, 32);
+    color:whitesmoke;
+    border-radius: 0.5rem;
+    border: 1px solid whitesmoke;
+    
 }
