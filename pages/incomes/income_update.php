@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title>所得追加</title>
+    <title>所得変更</title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -28,6 +28,7 @@ try{
             income_tax = :income_tax,
             resident_tax = :resident_tax,
             social_insurance_premiums = :social_insurance_premiums,
+            other = :other,
             payer = :payer
         WHERE id = :id
     ";
@@ -40,6 +41,7 @@ try{
     $stmt->bindValue(':income_tax', $_POST["income_tax"], PDO::PARAM_INT);
     $stmt->bindValue(':resident_tax', $_POST["resident_tax"], PDO::PARAM_INT);
     $stmt->bindValue(':social_insurance_premiums', $_POST["social_insurance_premiums"], PDO::PARAM_INT);
+    $stmt->bindValue(':other', $_POST["other"], PDO::PARAM_INT);
     $stmt->bindValue(':payer', $_POST["payer"], PDO::PARAM_STR);
     $stmt->execute();
 
@@ -63,6 +65,9 @@ include(__DIR__ . "/../../includes/header.php");
             <div class="col"><?php echo $result_msg ?></div>
         </div>
 
+        <div class="row mt-3">
+            <a href="./income_list.php" class="common-link">所得一覧</a>
+        </div>
         
 <?php 
 include(__DIR__ . "/../../includes/footer.php");

@@ -61,6 +61,11 @@ include(__DIR__ . "/../../includes/header.php");
                 </tr>
 
                 <tr>
+                    <td>その他</td>
+                    <td><input type="number"  id="other"  class="common-textbox" name="other"/></td>
+                </tr>
+
+                <tr>
                     <td>支払者</td>
                     <td><input type="text"  id="payer"  class="common-textbox" name="payer"/></td>
                 </tr>
@@ -69,8 +74,8 @@ include(__DIR__ . "/../../includes/header.php");
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col text-center ps-0 pe-0">
-                <button type="submit" class="w-100 h-100 common-header-link align-middle">登録</button>
+            <div class="col-1 text-center">
+                <button type="submit" class="w-100 h-100 common-button align-middle">登録</button>
             </div>
             </div>
         </form>

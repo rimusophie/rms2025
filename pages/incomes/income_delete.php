@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title>所得追加</title>
+    <title>所得削除</title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -48,6 +48,9 @@ include(__DIR__ . "/../../includes/header.php");
             <div class="col"><?php echo $result_msg ?></div>
         </div>
 
+        <div class="row mt-3">
+            <a href="./income_list.php" class="common-link">所得一覧</a>
+        </div>
         
 <?php 
 include(__DIR__ . "/../../includes/footer.php");

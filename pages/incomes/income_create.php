@@ -27,6 +27,7 @@ try{
             income_tax,
             resident_tax,
             social_insurance_premiums,
+            other,
             payer
         ) VALUES (
             :receive_date,
@@ -35,6 +36,7 @@ try{
             :income_tax,
             :resident_tax,
             :social_insurance_premiums,
+            :other,
             :payer
         )"
     ;
@@ -45,6 +47,7 @@ try{
     $stmt->bindValue(':income_tax', $_POST["income_tax"], PDO::PARAM_INT);
     $stmt->bindValue(':resident_tax', $_POST["resident_tax"], PDO::PARAM_INT);
     $stmt->bindValue(':social_insurance_premiums', $_POST["social_insurance_premiums"], PDO::PARAM_INT);
+    $stmt->bindValue(':other', $_POST["other"], PDO::PARAM_INT);
     $stmt->bindValue(':payer', $_POST["payer"], PDO::PARAM_STR);
     $stmt->execute();
 
@@ -68,7 +71,9 @@ include(__DIR__ . "/../../includes/header.php");
             <div class="col"><?php echo $result_msg ?></div>
         </div>
 
-        
+        <div class="row mt-3">
+            <a href="./income_list.php" class="common-link">所得一覧</a>
+        </div>
 <?php 
 include(__DIR__ . "/../../includes/footer.php");
 ?>

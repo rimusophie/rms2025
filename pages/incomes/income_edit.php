@@ -18,7 +18,7 @@ $id = $_GET["id"] ?? null;
 
 try {
     $db = get_db();
-    $sql = "SELECT * FROM incomes WHERE id = :id";
+    $sql = "SELECT id, receive_date, type, total_amount_paid, income_tax, resident_tax, social_insurance_premiums, other, payer FROM incomes WHERE id = :id";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -40,69 +40,74 @@ include(__DIR__ . "/../../includes/header.php");
 
         <form action="./income_update.php" method="post" class="mt-3">
             <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($income['id'], ENT_QUOTES, 'UTF-8') ?>"/>
-        <div class="row mt-3">
-            <div class="col">
-            <table class="common-table">
-                <tr>
-                    <td>日付</td>
-                    <td>
-                        <input type="date" id="receive_date" class="common-textbox" name="receive_date" value="<?= htmlspecialchars($income['receive_date'], ENT_QUOTES, 'UTF-8') ?>"/>
-                    </td>
-                </tr>
+            <div class="row mt-3">
+                <div class="col">
+                <table class="common-table">
+                    <tr>
+                        <td>日付</td>
+                        <td>
+                            <input type="date" id="receive_date" class="common-textbox" name="receive_date" value="<?= htmlspecialchars($income['receive_date'], ENT_QUOTES, 'UTF-8') ?>"/>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>種別</td>
-                    <td>
-                        <select id="type" class="common-combobox" name="type" value="<?= htmlspecialchars($income['type'], ENT_QUOTES, 'UTF-8') ?>">
-                            <option value="0" <?= $income['type'] == 0 ? 'selected' : '' ?>>不明</option>
-                            <option value="1" <?= $income['type'] == 1 ? 'selected' : '' ?>>月給</option>
-                            <option value="2" <?= $income['type'] == 2 ? 'selected' : '' ?>>賞与</option>
-                        </select>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>種別</td>
+                        <td>
+                            <select id="type" class="common-combobox" name="type" value="<?= htmlspecialchars($income['type'], ENT_QUOTES, 'UTF-8') ?>">
+                                <option value="0" <?= $income['type'] == 0 ? 'selected' : '' ?>>不明</option>
+                                <option value="1" <?= $income['type'] == 1 ? 'selected' : '' ?>>月給</option>
+                                <option value="2" <?= $income['type'] == 2 ? 'selected' : '' ?>>賞与</option>
+                            </select>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>総支給額</td>
-                    <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" value="<?= htmlspecialchars($income['total_amount_paid'], ENT_QUOTES, 'UTF-8') ?>"/></td>
-                </tr>
+                    <tr>
+                        <td>総支給額</td>
+                        <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" value="<?= htmlspecialchars($income['total_amount_paid'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
 
-                <tr>
-                    <td>所得税</td>
-                    <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" value="<?= htmlspecialchars($income['income_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
-                </tr>
+                    <tr>
+                        <td>所得税</td>
+                        <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" value="<?= htmlspecialchars($income['income_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
 
-                <tr>
-                    <td>住民税</td>
-                    <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" value="<?= htmlspecialchars($income['resident_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
-                </tr>
+                    <tr>
+                        <td>住民税</td>
+                        <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" value="<?= htmlspecialchars($income['resident_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
 
-                <tr>
-                    <td>社会保険料</td>
-                    <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" value="<?= htmlspecialchars($income['social_insurance_premiums'], ENT_QUOTES, 'UTF-8') ?>"/></td>
-                </tr>
+                    <tr>
+                        <td>社会保険料</td>
+                        <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" value="<?= htmlspecialchars($income['social_insurance_premiums'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
 
-                <tr>
-                    <td>支払者</td>
-                    <td><input type="text"  id="payer"  class="common-textbox" name="payer" value="<?= htmlspecialchars($income['payer'], ENT_QUOTES, 'UTF-8') ?>"/></td>
-                </tr>
-            </table>
-            
+                    <tr>
+                        <td>その他</td>
+                        <td><input type="number"  id="other"  class="common-textbox" name="other" value="<?= htmlspecialchars($income['other'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
+
+                    <tr>
+                        <td>支払者</td>
+                        <td><input type="text"  id="payer"  class="common-textbox" name="payer" value="<?= htmlspecialchars($income['payer'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                    </tr>
+                </table>
+                
+                </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col text-center ps-0 pe-0">
-                <button type="submit" class="w-100 h-100 common-header-link align-middle">更新</button>
-            </div>
+            <div class="row mt-3">
+                <div class="col-1 text-center">
+                    <button type="submit" class="w-100 h-100 common-button align-middle">更新</button>
+                </div>
             </div>
         </form>
 
-        <form action="./income_delete.php" method="post" class="mt-3">
+        <form action="./income_delete.php" method="post">
             <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($income['id'], ENT_QUOTES, 'UTF-8') ?>"/>
-        <div class="row mt-3">
-            <div class="col text-center ps-0 pe-0">
-                <button type="submit" class="w-100 h-100 common-header-link align-middle">削除</button>
+            <div class="row mt-5">
+                <div class="col-1 text-center">
+                    <button type="submit" class="w-100 h-100 common-button align-middle">削除</button>
+                </div>
             </div>
-        </div>
         </form>
 <?php 
 include(__DIR__ . "/../../includes/footer.php");

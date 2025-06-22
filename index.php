@@ -9,16 +9,18 @@
     <title>トップページ</title>
 </head>
 
-<?php
-$a = "file:///Y:/32643199_p0.jpg";
-
-?>
 <body class="common-body">
-    <div class="common-container">
+    <div class="container common-container">
+<?php 
+include(__DIR__ . "/includes/header.php");
+?>
         <h1>一覧</h1>
-        <ul class="common-link">
-            <li><a href="./pages/incomes/income_list.php">所得一覧</a></li>
+        <ul>
+            <li><a href="./pages/incomes/income_list.php" class="common-link">所得一覧</a></li>
         </ul>
+<?php 
+include(__DIR__ . "/includes/footer.php");
+?>
     </div>
 </body>
 </html>
