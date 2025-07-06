@@ -29,6 +29,12 @@
     color: aqua;
 }
 
+h1 {
+    font-size: x-large;
+    background-color: rgb(34, 0, 34);
+    color:whitesmoke;
+    padding: 0.5rem;
+}
 .common-table th {
     border-width: 1px;
     border-color: white;
@@ -80,4 +86,8 @@
     border-radius: 0.5rem;
     border: 1px solid whitesmoke;
     
+}
+
+.common-width-name {
+    width: 20rem;
 }
