@@ -12,7 +12,7 @@
 <body class="common-body">
     <div class="container common-container">
 <?php 
-include(__DIR__ . "/includes/header.php");
+include(__DIR__ . '/includes/header.php');
 ?>
     <div class="row mt-3">
         <div class="col">
@@ -28,7 +28,7 @@ include(__DIR__ . "/includes/header.php");
         </div>
     </div>
 <?php 
-include(__DIR__ . "/includes/footer.php");
+include(__DIR__ . '/includes/footer.php');
 ?>
     </div>
 </body>

@@ -1,9 +1,18 @@
+<?php
+
+require_once(__DIR__ . '/income_common.php');
+
+$page_title_text = IncomeCommon::PAGE_TITLE_ADD;
+$common_link_text = IncomeCommon::PAGE_TITLE_LIST;
+$common_link_href = IncomeCommon::HREF_LIST;
+?>
+
 <html lang="ja">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title>所得追加</title>
+    <title><?= IncomeCommon::PAGE_TITLE_ADD ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -14,23 +23,23 @@
 <body class="common-body">
     <div class="container common-container">
 <?php 
-include(__DIR__ . "/../../includes/header.php");
+include(__DIR__ . '/../../includes/header.php');
+include(__DIR__ . '/../../includes/page_title.php');
 ?>
-        <div class="row mt-3">
-            <div class="col">所得追加</div>
-        </div>
 
-        <form action="./income_create.php" method="post" class="mt-3">
+        <form action="<?= IncomeCommon::HREF_CREATE ?>" method="post" class="mt-3">
         <div class="row mt-3">
             <div class="col">
             <table class="common-table">
+                <!-- 日付 -->
                 <tr>
-                    <td>日付</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_RECEIVE_DATE ?></td>
                     <td><input type="date" id="receive_date" class="common-textbox" name="receive_date"/></td>
                 </tr>
 
+                <!-- 種別 -->
                 <tr>
-                    <td>種別</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                     <td>
                         <select id="type" class="common-combobox" name="type">
                             <option value="0">不明</option>
@@ -40,34 +49,40 @@ include(__DIR__ . "/../../includes/header.php");
                     </td>
                 </tr>
 
+                <!-- 総支給額 -->
                 <tr>
-                    <td>総支給額</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_TOTAL_AMOUNT_PAID ?></td>
                     <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid"/></td>
                 </tr>
 
+                <!-- 所得税 -->
                 <tr>
-                    <td>所得税</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_INCOME_TAX ?></td>
                     <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax"/></td>
                 </tr>
 
+                <!-- 住民税 -->
                 <tr>
-                    <td>住民税</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_RESIDENT_TAX ?></td>
                     <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax"/></td>
                 </tr>
 
+                <!-- 社会保険料 -->
                 <tr>
-                    <td>社会保険料</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS ?></td>
                     <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums"/></td>
                 </tr>
 
+                <!-- その他 -->
                 <tr>
-                    <td>その他</td>
+                    <td><?= IncomeCommon::PAGE_ITEM_OTHER ?></td>
                     <td><input type="number"  id="other"  class="common-textbox" name="other"/></td>
                 </tr>
 
+                <!-- 支払者 -->
                 <tr>
-                    <td>支払者</td>
-                    <td><input type="text"  id="payer"  class="common-textbox" name="payer"/></td>
+                    <td><?= IncomeCommon::PAGE_ITEM_PAYER ?></td>
+                    <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer"/></td>
                 </tr>
             </table>
             
@@ -75,12 +90,14 @@ include(__DIR__ . "/../../includes/header.php");
         </div>
         <div class="row mt-3">
             <div class="col-1 text-center">
-                <button type="submit" class="w-100 h-100 common-button align-middle">登録</button>
+                <!-- 登録 -->
+                <button type="submit" class="w-100 h-100 common-button align-middle"><?= Constants::PAGE_CREATE ?></button>
             </div>
             </div>
         </form>
 <?php 
-include(__DIR__ . "/../../includes/footer.php");
+include(__DIR__ . '/../../includes/common_link.php');
+include(__DIR__ . '/../../includes/footer.php');
 ?>
     </div>
 </body>
