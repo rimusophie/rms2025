@@ -1,10 +1,10 @@
 <?php
 
-require_once(__DIR__ . '/qualification_common.php');
+require_once(__DIR__ . '/skill_common.php');
 
-$page_title_text = QualificationCommon::PAGE_TITLE_ADD;
-$common_link_text = QualificationCommon::PAGE_TITLE_LIST;
-$common_link_href = QualificationCommon::HREF_LIST;
+$page_title_text = SkillCommon::PAGE_TITLE_ADD;
+$common_link_text = SkillCommon::PAGE_TITLE_LIST;
+$common_link_href = SkillCommon::HREF_LIST;
 ?>
 
 <html lang="ja">
@@ -12,7 +12,7 @@ $common_link_href = QualificationCommon::HREF_LIST;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title><?= QualificationCommon::PAGE_TITLE_ADD ?></title>
+    <title><?= SkillCommon::PAGE_TITLE_ADD ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -27,19 +27,21 @@ include(__DIR__ . '/../../includes/header.php');
 include(__DIR__ . '/../../includes/page_title.php');
 ?>
 
-        <form action="<?= QualificationCommon::HREF_CREATE ?>" method="post" class="mt-3">
+        <form action="<?= SkillCommon::HREF_CREATE ?>" method="post" class="mt-3">
         <div class="row mt-3">
             <div class="col">
             <table class="common-table">
+
                 <tr>
-                    <td><?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?></td>
-                    <td><input type="date" id="acquisition_date" class="common-textbox" name="acquisition_date"/></td>
+                    <td><?= SkillCommon::PAGE_ITEM_NAME ?></td>
+                    <td><input type="text" id="name" class="common-textbox common-width-name" name="name" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
                 </tr>
 
                 <tr>
-                    <td><?= QualificationCommon::PAGE_ITEM_NAME ?></td>
-                    <td><input type="text" id="name" class="common-textbox common-width-name" name="name" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
+                    <td><?= SkillCommon::PAGE_ITEM_SORT_NO ?></td>
+                    <td><input type="number" id="sort_no" class="common-textbox" name="sort_no" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
+
             </table>
             
             </div>

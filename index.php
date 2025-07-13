@@ -24,6 +24,7 @@ include(__DIR__ . '/includes/header.php');
             <ul>
                 <li><a href="./pages/incomes/income_list.php" class="common-link">所得一覧</a></li>
                 <li><a href="./pages/qualifications/qualification_list.php" class="common-link">資格・検定一覧</a></li>
+                <li><a href="./pages/skills/skill_list.php" class="common-link">スキル一覧</a></li>
             </ul>
         </div>
     </div>

@@ -1,22 +1,22 @@
 <?php
 
-require_once(__DIR__ . '/qualification_common.php');
+require_once(__DIR__ . '/skill_common.php');
 require_once(__DIR__ . '/../../utils/db.php');
 
-$page_title_text = QualificationCommon::PAGE_TITLE_LIST;
-$common_link_text = QualificationCommon::PAGE_TITLE_ADD;
-$common_link_href = QualificationCommon::HREF_ADD;
+$page_title_text = SkillCommon::PAGE_TITLE_LIST;
+$common_link_text = SkillCommon::PAGE_TITLE_ADD;
+$common_link_href = SkillCommon::HREF_ADD;
 
 $pdo = get_db();
 $sql = '
     SELECT 
-        q.id AS q_id,
-        q.name AS q_name,
-        q.acquisition_date AS q_acquisition_date
+        s.id AS s_id,
+        s.name AS s_name,
+        s.sort_no AS s_sort_no
     FROM
-        qualifications AS q 
+        skills AS s 
     ORDER BY 
-        q.acquisition_date DESC
+        s.sort_no ASC
 ';
 $stmt = $pdo->query($sql);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -27,7 +27,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title><?= QualificationCommon::PAGE_TITLE_LIST ?></title>
+    <title><?= SkillCommon::PAGE_TITLE_LIST ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -47,15 +47,15 @@ include(__DIR__ . '/../../includes/common_link.php');
             <div class="col">
             <table class="common-table">
                 <tr>
-                    <th><?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?></th>
-                    <th><?= QualificationCommon::PAGE_ITEM_NAME ?></th>
+                    <th><?= SkillCommon::PAGE_ITEM_NAME ?></th>
+                    <th><?= SkillCommon::PAGE_ITEM_SORT_NO ?></th>
                     <th><?= Constants::PAGE_OPERATION ?></th>
                 </tr>
 <?php foreach($result as $row): ?>
                 <tr>
-                    <td><?= htmlspecialchars($row['q_acquisition_date'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= htmlspecialchars($row['q_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><a href="<?= IncomeCommon::HREF_EDIT ?>?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a></td>
+                    <td><?= htmlspecialchars($row['s_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                    <td><?= htmlspecialchars($row['s_sort_no'], ENT_QUOTES, 'UTF-8') ?></td>
+                    <td><a href="<?= SkillCommon::HREF_EDIT ?>?id=<?= urlencode($row['s_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a></td>
                 </tr>
 <?php endforeach; ?>
 

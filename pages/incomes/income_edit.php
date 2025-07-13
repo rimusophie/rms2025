@@ -48,7 +48,7 @@ try {
     $stmt->execute();
     $income = $stmt->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "エラーが発生しました。\n" . $e->getMessage();
+    echo sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
     exit;
 }
 ?>
@@ -78,9 +78,9 @@ include(__DIR__ . '/../../includes/page_title.php');
                         <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                         <td>
                             <select id="type" class="common-combobox" name="type" value="<?= htmlspecialchars($income['type'], ENT_QUOTES, 'UTF-8') ?>">
-                                <option value="0" <?= $income['type'] == 0 ? 'selected' : '' ?>>不明</option>
-                                <option value="1" <?= $income['type'] == 1 ? 'selected' : '' ?>>月給</option>
-                                <option value="2" <?= $income['type'] == 2 ? 'selected' : '' ?>>賞与</option>
+                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_UNKNOWN ?>" <?= $income['type'] == 0 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_UNKNOWN ?></option>
+                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_MONTHLY_SALARY ?>" <?= $income['type'] == 1 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_MONTHLY_SALARY ?></option>
+                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_BONUS ?>" <?= $income['type'] == 2 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_BONUS ?></option>
                             </select>
                         </td>
                     </tr>
@@ -88,37 +88,37 @@ include(__DIR__ . '/../../includes/page_title.php');
                     <!-- 総支給額 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_TOTAL_AMOUNT_PAID ?></td>
-                        <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" value="<?= htmlspecialchars($income['total_amount_paid'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" value="<?= htmlspecialchars($income['total_amount_paid'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                     </tr>
 
                     <!-- 所得税 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_INCOME_TAX ?></td>
-                        <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" value="<?= htmlspecialchars($income['income_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" value="<?= htmlspecialchars($income['income_tax'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                     </tr>
 
                     <!-- 住民税 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_RESIDENT_TAX ?></td>
-                        <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" value="<?= htmlspecialchars($income['resident_tax'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" value="<?= htmlspecialchars($income['resident_tax'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                     </tr>
 
                     <!-- 社会保険料 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS ?></td>
-                        <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" value="<?= htmlspecialchars($income['social_insurance_premiums'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" value="<?= htmlspecialchars($income['social_insurance_premiums'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                     </tr>
 
                     <!-- その他 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_OTHER ?></td>
-                        <td><input type="number"  id="other"  class="common-textbox" name="other" value="<?= htmlspecialchars($income['other'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="number"  id="other"  class="common-textbox" name="other" value="<?= htmlspecialchars($income['other'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                     </tr>
 
                     <!-- 支払者 -->
                     <tr>
                         <td><?= IncomeCommon::PAGE_ITEM_PAYER ?></td>
-                        <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer" value="<?= htmlspecialchars($income['payer'], ENT_QUOTES, 'UTF-8') ?>"/></td>
+                        <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer" value="<?= htmlspecialchars($income['payer'], ENT_QUOTES, 'UTF-8') ?>" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
                     </tr>
                 </table>
                 

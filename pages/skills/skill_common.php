@@ -2,8 +2,8 @@
 
 require_once(__DIR__ . '/../../utils/constants.php');
 
-class QualificationCommon {
-    const KIND = '資格・検定';
+class SkillCommon {
+    const KIND = 'スキル';
 
     /**
      * ページタイトル
@@ -16,8 +16,8 @@ class QualificationCommon {
     /**
      * 表示名
      */
-    const PAGE_ITEM_ACQUISITION_DATE = '取得日';
     const PAGE_ITEM_NAME = '名称';
+    const PAGE_ITEM_SORT_NO = '表示順';
 
     /**
      * メッセージ
@@ -29,12 +29,12 @@ class QualificationCommon {
     /**
      * リンク
      */
-    const HREF_LIST = './qualification_list.php';
-    const HREF_ADD = './qualification_add.php';
-    const HREF_EDIT = './qualification_edit.php';
-    const HREF_CREATE = './qualification_create.php';
-    const HREF_UPDATE = './qualification_update.php';
-    const HREF_DELETE = './qualification_delete.php';
+    const HREF_LIST = './skill_list.php';
+    const HREF_ADD = './skill_add.php';
+    const HREF_EDIT = './skill_edit.php';
+    const HREF_CREATE = './skill_create.php';
+    const HREF_UPDATE = './skill_update.php';
+    const HREF_DELETE = './skill_delete.php';
 }
 
 ?>

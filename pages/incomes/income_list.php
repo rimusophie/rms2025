@@ -8,9 +8,9 @@ $common_link_text = IncomeCommon::PAGE_TITLE_ADD;
 $common_link_href = IncomeCommon::HREF_ADD;
 
 $id_to_type = [
-    0 => "不明",
-    1 => "月給",
-    2 => "賞与",
+    IncomeCommon::ITEM_TYPE_VALUE_UNKNOWN  => IncomeCommon::ITEM_TYPE_LABEL_UNKNOWN,
+    IncomeCommon::ITEM_TYPE_VALUE_MONTHLY_SALARY  => IncomeCommon::ITEM_TYPE_LABEL_MONTHLY_SALARY,
+    IncomeCommon::ITEM_TYPE_VALUE_BONUS => IncomeCommon::ITEM_TYPE_LABEL_BONUS,
 ];
 
 $pdo = get_db();
