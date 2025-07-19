@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../../utils/constants.php');
+require_once(__DIR__ . '/../../utils/utils.php');
 
 class IncomeCommon {
     const KIND = Constants::KIND_INCOME;
@@ -65,4 +66,22 @@ class IncomeCommon {
     const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
 }
 
+/**
+ * 種別の列挙型
+ */
+enum IncomeType: int {
+    use EnumSelectable;
+
+    case Unknown = 0;
+    case MonthlySalary = 1;
+    case Bonus = 2;
+
+    public function label(): string {
+        return match($this) {
+            IncomeType::Unknown => '不明',
+            IncomeType::MonthlySalary => '月給',
+            IncomeType::Bonus => '賞与',
+        };
+    }
+}
 ?>

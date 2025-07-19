@@ -7,11 +7,7 @@ $page_title_text = IncomeCommon::PAGE_TITLE_LIST;
 $common_link_text = IncomeCommon::PAGE_TITLE_ADD;
 $common_link_href = IncomeCommon::HREF_ADD;
 
-$id_to_type = [
-    IncomeCommon::ITEM_TYPE_VALUE_UNKNOWN  => IncomeCommon::ITEM_TYPE_LABEL_UNKNOWN,
-    IncomeCommon::ITEM_TYPE_VALUE_MONTHLY_SALARY  => IncomeCommon::ITEM_TYPE_LABEL_MONTHLY_SALARY,
-    IncomeCommon::ITEM_TYPE_VALUE_BONUS => IncomeCommon::ITEM_TYPE_LABEL_BONUS,
-];
+$id_to_type = IncomeType::toSelectOptions();
 
 $pdo = get_db();
 $sql = '

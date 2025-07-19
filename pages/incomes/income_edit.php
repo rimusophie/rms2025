@@ -78,9 +78,9 @@ include(__DIR__ . '/../../includes/page_title.php');
                         <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                         <td>
                             <select id="type" class="common-combobox" name="type" value="<?= htmlspecialchars($income['type'], ENT_QUOTES, 'UTF-8') ?>">
-                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_UNKNOWN ?>" <?= $income['type'] == 0 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_UNKNOWN ?></option>
-                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_MONTHLY_SALARY ?>" <?= $income['type'] == 1 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_MONTHLY_SALARY ?></option>
-                                <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_BONUS ?>" <?= $income['type'] == 2 ? 'selected' : '' ?>><?= IncomeCommon::ITEM_TYPE_LABEL_BONUS ?></option>
+                                <option value="<?= IncomeType::Unknown->value ?>" <?= $income['type'] == 0 ? 'selected' : '' ?>><?= IncomeType::Unknown->label() ?></option>
+                                <option value="<?= IncomeType::MonthlySalary->value ?>" <?= $income['type'] == 1 ? 'selected' : '' ?>><?= IncomeType::MonthlySalary->label() ?></option>
+                                <option value="<?= IncomeType::Bonus->value ?>" <?= $income['type'] == 2 ? 'selected' : '' ?>><?= IncomeType::Bonus->label() ?></option>
                             </select>
                         </td>
                     </tr>

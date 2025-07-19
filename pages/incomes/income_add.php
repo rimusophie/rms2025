@@ -5,6 +5,7 @@ require_once(__DIR__ . '/income_common.php');
 $page_title_text = IncomeCommon::PAGE_TITLE_ADD;
 $common_link_text = IncomeCommon::PAGE_TITLE_LIST;
 $common_link_href = IncomeCommon::HREF_LIST;
+
 ?>
 
 <html lang="ja">
@@ -42,9 +43,9 @@ include(__DIR__ . '/../../includes/page_title.php');
                     <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                     <td>
                         <select id="type" class="common-combobox" name="type">
-                            <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_UNKNOWN ?>"><?= IncomeCommon::ITEM_TYPE_LABEL_UNKNOWN ?></option>
-                            <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_MONTHLY_SALARY ?>"><?= IncomeCommon::ITEM_TYPE_LABEL_MONTHLY_SALARY ?></option>
-                            <option value="<?= IncomeCommon::ITEM_TYPE_VALUE_BONUS ?>"><?= IncomeCommon::ITEM_TYPE_LABEL_BONUS ?></option>
+                            <option value="<?= IncomeType::Unknown->value ?>"><?= IncomeType::Unknown->label() ?></option>
+                            <option value="<?= IncomeType::MonthlySalary->value ?>"><?= IncomeType::MonthlySalary->label() ?></option>
+                            <option value="<?= IncomeType::Bonus->value ?>"><?= IncomeType::Bonus->label() ?></option>
                         </select>
                     </td>
                 </tr>
