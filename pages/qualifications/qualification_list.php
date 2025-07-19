@@ -55,7 +55,7 @@ include(__DIR__ . '/../../includes/common_link.php');
                 <tr>
                     <td><?= htmlspecialchars($row['q_acquisition_date'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($row['q_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><a href="./qualification_edit.php?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a></td>
+                    <td><a href="<?= QualificationCommon::HREF_EDIT ?>?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a></td>
                 </tr>
 <?php endforeach; ?>
 

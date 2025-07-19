@@ -1,14 +1,13 @@
 <?php
 
 require_once(__DIR__ . '/../../utils/constants.php');
-require_once(__DIR__ . '/../../utils/utils.php');
 
-class IncomeCommon {
-    const KIND = Constants::KIND_INCOME;
+class SkillCommon {
+    const KIND = Constants::KIND_SKILL;
 
-    /** 
+    /**
      * ページタイトル
-     **/ 
+     */
     const PAGE_TITLE_LIST = self::KIND . Constants::PAGE_LIST;
     const PAGE_TITLE_ADD = self::KIND . Constants::PAGE_ADD;
     const PAGE_TITLE_EDIT = self::KIND . Constants::PAGE_EDIT;
@@ -17,15 +16,8 @@ class IncomeCommon {
     /**
      * 表示名
      */
-    const PAGE_ITEM_RECEIVE_DATE = '日付';
-    const PAGE_ITEM_TYPE = '種別';
-    const PAGE_ITEM_TOTAL_AMOUNT_PAID = '総支給額';
-    const PAGE_ITEM_INCOME_TAX = '所得税';
-    const PAGE_ITEM_RESIDENT_TAX = '住民税';
-    const PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS = '社会保険料';
-    const PAGE_ITEM_OTHER = 'その他';
-    const PAGE_ITEM_DISPOSABLE_INCOME = '差引';
-    const PAGE_ITEM_PAYER = '支払者';
+    const PAGE_ITEM_NAME = '名称';
+    const PAGE_ITEM_SORT_NO = '表示順';
 
     /**
      * メッセージ
@@ -37,13 +29,13 @@ class IncomeCommon {
     /**
      * ファイル名
      */
-    const FILE_LIST = 'income_list.php';
-    const FILE_ADD = 'income_add.php';
-    const FILE_EDIT = 'income_edit.php';
-    const FILE_CREATE = 'income_create.php';
-    const FILE_UPDATE = 'income_update.php';
-    const FILE_DELETE = 'income_delete.php';
-
+    const FILE_LIST = 'skill_list.php';
+    const FILE_ADD = 'skill_add.php';
+    const FILE_EDIT = 'skill_edit.php';
+    const FILE_CREATE = 'skill_create.php';
+    const FILE_UPDATE = 'skill_update.php';
+    const FILE_DELETE = 'skill_delete.php';
+    
     /**
      * リンク
      */
@@ -55,22 +47,4 @@ class IncomeCommon {
     const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
 }
 
-/**
- * 種別の列挙型
- */
-enum IncomeType: int {
-    use EnumSelectable;
-
-    case Unknown = 0;
-    case MonthlySalary = 1;
-    case Bonus = 2;
-
-    public function label(): string {
-        return match($this) {
-            IncomeType::Unknown => '不明',
-            IncomeType::MonthlySalary => '月給',
-            IncomeType::Bonus => '賞与',
-        };
-    }
-}
 ?>

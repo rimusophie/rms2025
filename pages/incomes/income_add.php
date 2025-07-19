@@ -5,6 +5,7 @@ require_once(__DIR__ . '/income_common.php');
 $page_title_text = IncomeCommon::PAGE_TITLE_ADD;
 $common_link_text = IncomeCommon::PAGE_TITLE_LIST;
 $common_link_href = IncomeCommon::HREF_LIST;
+
 ?>
 
 <html lang="ja">
@@ -42,9 +43,9 @@ include(__DIR__ . '/../../includes/page_title.php');
                     <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                     <td>
                         <select id="type" class="common-combobox" name="type">
-                            <option value="0">不明</option>
-                            <option value="1">月給</option>
-                            <option value="2">賞与</option>
+                            <option value="<?= IncomeType::Unknown->value ?>"><?= IncomeType::Unknown->label() ?></option>
+                            <option value="<?= IncomeType::MonthlySalary->value ?>"><?= IncomeType::MonthlySalary->label() ?></option>
+                            <option value="<?= IncomeType::Bonus->value ?>"><?= IncomeType::Bonus->label() ?></option>
                         </select>
                     </td>
                 </tr>
@@ -52,37 +53,37 @@ include(__DIR__ . '/../../includes/page_title.php');
                 <!-- 総支給額 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_TOTAL_AMOUNT_PAID ?></td>
-                    <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid"/></td>
+                    <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
 
                 <!-- 所得税 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_INCOME_TAX ?></td>
-                    <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax"/></td>
+                    <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
 
                 <!-- 住民税 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_RESIDENT_TAX ?></td>
-                    <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax"/></td>
+                    <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
 
                 <!-- 社会保険料 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS ?></td>
-                    <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums"/></td>
+                    <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
 
                 <!-- その他 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_OTHER ?></td>
-                    <td><input type="number"  id="other"  class="common-textbox" name="other"/></td>
+                    <td><input type="number"  id="other"  class="common-textbox" name="other" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
                 </tr>
 
                 <!-- 支払者 -->
                 <tr>
                     <td><?= IncomeCommon::PAGE_ITEM_PAYER ?></td>
-                    <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer"/></td>
+                    <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
                 </tr>
             </table>
             

@@ -7,11 +7,7 @@ $page_title_text = IncomeCommon::PAGE_TITLE_LIST;
 $common_link_text = IncomeCommon::PAGE_TITLE_ADD;
 $common_link_href = IncomeCommon::HREF_ADD;
 
-$id_to_type = [
-    0 => "不明",
-    1 => "月給",
-    2 => "賞与",
-];
+$id_to_type = IncomeType::toSelectOptions();
 
 $pdo = get_db();
 $sql = '
