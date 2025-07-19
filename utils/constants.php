@@ -16,6 +16,18 @@ class Constants {
     const PAGE_OPERATION = '操作';
 
     /**
+     * パス
+     */
+    const PATH_CURRENT = './';
+    
+    /**
+     * 種別
+     */
+    const KIND_INCOME = '所得';
+    const KIND_QUALIFICATION = '資格・検定';
+    const KIND_SKILL = 'スキル';
+
+    /**
      * メッセージ
      */
     const MESSAGE_ERROR = 'エラーが発生しました。';
@@ -23,9 +35,9 @@ class Constants {
     /**
      * 入力制限
      */
-    const INPUT_INT_MAX = 2147483647; // 32-bit signed integer max value
-    const INPUT_INT_MIN = -2147483648; // 32-bit signed integer min
-    const INPUT_NAME_MAX_LENGTH = 100; // 名称の最大文字数
+    const INPUT_INT_MAX = 2147483647;       // 32ビット符号つきint最大値
+    const INPUT_INT_MIN = -2147483648;      // 32ビット符号つきint最小値
+    const INPUT_NAME_MAX_LENGTH = 100;  // 名称の最大文字数
 }
 
 ?>

@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../../utils/constants.php');
 
 class QualificationCommon {
-    const KIND = '資格・検定';
+    const KIND = Constants::KIND_QUALIFICATION;
 
     /**
      * ページタイトル
@@ -27,14 +27,24 @@ class QualificationCommon {
     const MESSAGE_DELETE_SUCCESS = self::KIND . 'を' . Constants::PAGE_DELETE . 'しました。';
 
     /**
+     * ファイル名
+     */
+    const FILE_LIST = 'qualification_list.php';
+    const FILE_ADD = 'qualification_add.php';
+    const FILE_EDIT = 'qualification_edit.php';
+    const FILE_CREATE = 'qualification_create.php';
+    const FILE_UPDATE = 'qualification_update.php';
+    const FILE_DELETE = 'qualification_delete.php';
+
+    /**
      * リンク
      */
-    const HREF_LIST = './qualification_list.php';
-    const HREF_ADD = './qualification_add.php';
-    const HREF_EDIT = './qualification_edit.php';
-    const HREF_CREATE = './qualification_create.php';
-    const HREF_UPDATE = './qualification_update.php';
-    const HREF_DELETE = './qualification_delete.php';
+    const HREF_LIST = Constants::PATH_CURRENT . self::FILE_LIST;
+    const HREF_ADD = Constants::PATH_CURRENT . self::FILE_ADD;
+    const HREF_EDIT = Constants::PATH_CURRENT . self::FILE_EDIT;
+    const HREF_CREATE = Constants::PATH_CURRENT . self::FILE_CREATE;
+    const HREF_UPDATE = Constants::PATH_CURRENT . self::FILE_UPDATE;
+    const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
 }
 
 ?>

@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../../utils/constants.php');
 
 class SkillCommon {
-    const KIND = 'スキル';
+    const KIND = Constants::KIND_SKILL;
 
     /**
      * ページタイトル
@@ -27,14 +27,24 @@ class SkillCommon {
     const MESSAGE_DELETE_SUCCESS = self::KIND . 'を' . Constants::PAGE_DELETE . 'しました。';
 
     /**
+     * ファイル名
+     */
+    const FILE_LIST = 'skill_list.php';
+    const FILE_ADD = 'skill_add.php';
+    const FILE_EDIT = 'skill_edit.php';
+    const FILE_CREATE = 'skill_create.php';
+    const FILE_UPDATE = 'skill_update.php';
+    const FILE_DELETE = 'skill_delete.php';
+    
+    /**
      * リンク
      */
-    const HREF_LIST = './skill_list.php';
-    const HREF_ADD = './skill_add.php';
-    const HREF_EDIT = './skill_edit.php';
-    const HREF_CREATE = './skill_create.php';
-    const HREF_UPDATE = './skill_update.php';
-    const HREF_DELETE = './skill_delete.php';
+    const HREF_LIST = Constants::PATH_CURRENT . self::FILE_LIST;
+    const HREF_ADD = Constants::PATH_CURRENT . self::FILE_ADD;
+    const HREF_EDIT = Constants::PATH_CURRENT . self::FILE_EDIT;
+    const HREF_CREATE = Constants::PATH_CURRENT . self::FILE_CREATE;
+    const HREF_UPDATE = Constants::PATH_CURRENT . self::FILE_UPDATE;
+    const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
 }
 
 ?>

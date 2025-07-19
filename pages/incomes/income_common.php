@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../../utils/constants.php');
 
 class IncomeCommon {
-    const KIND = '所得';
+    const KIND = Constants::KIND_INCOME;
 
     /** 
      * ページタイトル
@@ -45,14 +45,24 @@ class IncomeCommon {
     const MESSAGE_DELETE_SUCCESS = self::KIND . 'を' . Constants::PAGE_DELETE . 'しました。';
 
     /**
+     * ファイル名
+     */
+    const FILE_LIST = 'income_list.php';
+    const FILE_ADD = 'income_add.php';
+    const FILE_EDIT = 'income_edit.php';
+    const FILE_CREATE = 'income_create.php';
+    const FILE_UPDATE = 'income_update.php';
+    const FILE_DELETE = 'income_delete.php';
+
+    /**
      * リンク
      */
-    const HREF_LIST = './income_list.php';
-    const HREF_ADD = './income_add.php';
-    const HREF_EDIT = './income_edit.php';
-    const HREF_CREATE = './income_create.php';
-    const HREF_UPDATE = './income_update.php';
-    const HREF_DELETE = './income_delete.php';
+    const HREF_LIST = Constants::PATH_CURRENT . self::FILE_LIST;
+    const HREF_ADD = Constants::PATH_CURRENT . self::FILE_ADD;
+    const HREF_EDIT = Constants::PATH_CURRENT . self::FILE_EDIT;
+    const HREF_CREATE = Constants::PATH_CURRENT . self::FILE_CREATE;
+    const HREF_UPDATE = Constants::PATH_CURRENT . self::FILE_UPDATE;
+    const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
 }
 
 ?>

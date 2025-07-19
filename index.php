@@ -1,3 +1,8 @@
+<?php
+
+require_once(__DIR__ . '/utils/constants.php');
+
+?>
 <html lang="ja">
 <head>
     <meta charset="utf-8">
@@ -22,9 +27,9 @@ include(__DIR__ . '/includes/header.php');
     <div class="row mt-3">
         <div class="col">
             <ul>
-                <li><a href="./pages/incomes/income_list.php" class="common-link">所得一覧</a></li>
-                <li><a href="./pages/qualifications/qualification_list.php" class="common-link">資格・検定一覧</a></li>
-                <li><a href="./pages/skills/skill_list.php" class="common-link">スキル一覧</a></li>
+                <li><a href="./pages/incomes/income_list.php" class="common-link"><?= Constants::KIND_INCOME . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/qualifications/qualification_list.php" class="common-link"><?= Constants::KIND_QUALIFICATION . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/skills/skill_list.php" class="common-link"><?= Constants::KIND_SKILL . Constants::PAGE_LIST ?></a></li>
             </ul>
         </div>
     </div>

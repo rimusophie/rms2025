@@ -90,6 +90,7 @@ include(__DIR__ . '/../../includes/page_title.php');
             </div>
         </form>
 <?php 
+include(__DIR__ . '/../../includes/common_link.php');
 include(__DIR__ . '/../../includes/footer.php');
 ?>
     </div>
