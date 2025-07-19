@@ -15,17 +15,6 @@ class IncomeCommon {
     const PAGE_TITLE_DELETE = self::KIND . Constants::PAGE_DELETE;
 
     /**
-     * 種別のIDと名称
-     **/ 
-    const ITEM_TYPE_VALUE_UNKNOWN = 0;
-    const ITEM_TYPE_VALUE_MONTHLY_SALARY = 1;
-    const ITEM_TYPE_VALUE_BONUS = 2;
-
-    const ITEM_TYPE_LABEL_UNKNOWN = '不明';
-    const ITEM_TYPE_LABEL_MONTHLY_SALARY = '月給';
-    const ITEM_TYPE_LABEL_BONUS = '賞与';
-
-    /**
      * 表示名
      */
     const PAGE_ITEM_RECEIVE_DATE = '日付';
