@@ -24,7 +24,7 @@ $common_link_href = SkillCommon::HREF_LIST;
 
 <?php
 
-$result_msg_text = "";
+$result_msg_text = '';
 
 try{
     $pdo = get_db();
@@ -40,9 +40,9 @@ try{
     ';
     
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST["id"], PDO::PARAM_INT);
-    $stmt->bindValue(':name', $_POST["name"], PDO::PARAM_STR);
-    $stmt->bindValue(':sort_no', $_POST["sort_no"], PDO::PARAM_STR);
+    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+    $stmt->bindValue(':sort_no', $_POST['sort_no'], PDO::PARAM_INT);
     $stmt->execute();
 
     $result_msg_text = SkillCommon::MESSAGE_UPDATE_SUCCESS;

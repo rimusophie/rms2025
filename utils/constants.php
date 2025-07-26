@@ -26,6 +26,7 @@ class Constants {
     const KIND_INCOME = '所得';
     const KIND_QUALIFICATION = '資格・検定';
     const KIND_SKILL = 'スキル';
+    const KIND_RESUME = '職務経歴';
 
     /**
      * メッセージ

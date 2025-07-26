@@ -30,6 +30,7 @@ include(__DIR__ . '/includes/header.php');
                 <li><a href="./pages/incomes/income_list.php" class="common-link"><?= Constants::KIND_INCOME . Constants::PAGE_LIST ?></a></li>
                 <li><a href="./pages/qualifications/qualification_list.php" class="common-link"><?= Constants::KIND_QUALIFICATION . Constants::PAGE_LIST ?></a></li>
                 <li><a href="./pages/skills/skill_list.php" class="common-link"><?= Constants::KIND_SKILL . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/resumes/resume_list.php" class="common-link"><?= Constants::KIND_RESUME . Constants::PAGE_LIST ?></a></li>
             </ul>
         </div>
     </div>

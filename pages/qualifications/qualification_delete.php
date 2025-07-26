@@ -23,7 +23,7 @@ $common_link_href = QualificationCommon::HREF_LIST;
 
 <?php
 
-$result_msg_text = "";
+$result_msg_text = '';
 
 try{
     $pdo = get_db();
@@ -36,7 +36,7 @@ try{
     ';
     
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST["id"], PDO::PARAM_INT);
+    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
     $stmt->execute();
 
     $result_msg_text = QualificationCommon::MESSAGE_DELETE_SUCCESS;

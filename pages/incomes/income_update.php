@@ -23,7 +23,7 @@ $common_link_href = IncomeCommon::HREF_LIST;
 
 <?php
 
-$result_msg_text = "";
+$result_msg_text = '';
 
 try {
     $pdo = get_db();
@@ -45,15 +45,15 @@ try {
     ';
     
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST["id"], PDO::PARAM_INT);
-    $stmt->bindValue(':receive_date', $_POST["receive_date"], PDO::PARAM_STR);
-    $stmt->bindValue(':type', $_POST["type"], PDO::PARAM_INT);
-    $stmt->bindValue(':total_amount_paid', $_POST["total_amount_paid"], PDO::PARAM_INT);
-    $stmt->bindValue(':income_tax', $_POST["income_tax"], PDO::PARAM_INT);
-    $stmt->bindValue(':resident_tax', $_POST["resident_tax"], PDO::PARAM_INT);
-    $stmt->bindValue(':social_insurance_premiums', $_POST["social_insurance_premiums"], PDO::PARAM_INT);
-    $stmt->bindValue(':other', $_POST["other"], PDO::PARAM_INT);
-    $stmt->bindValue(':payer', $_POST["payer"], PDO::PARAM_STR);
+    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':receive_date', $_POST['receive_date'], PDO::PARAM_STR);
+    $stmt->bindValue(':type', $_POST['type'], PDO::PARAM_INT);
+    $stmt->bindValue(':total_amount_paid', $_POST['total_amount_paid'], PDO::PARAM_INT);
+    $stmt->bindValue(':income_tax', $_POST['income_tax'], PDO::PARAM_INT);
+    $stmt->bindValue(':resident_tax', $_POST['resident_tax'], PDO::PARAM_INT);
+    $stmt->bindValue(':social_insurance_premiums', $_POST['social_insurance_premiums'], PDO::PARAM_INT);
+    $stmt->bindValue(':other', $_POST['other'], PDO::PARAM_INT);
+    $stmt->bindValue(':payer', $_POST['payer'], PDO::PARAM_STR);
     $stmt->execute();
 
     $result_msg_text = IncomeCommon::MESSAGE_UPDATE_SUCCESS;

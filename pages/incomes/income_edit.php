@@ -24,7 +24,7 @@ $common_link_href = IncomeCommon::HREF_LIST;
 
 <?php
 
-$id = $_GET["id"] ?? null;
+$id = $_GET['id'] ?? null;
 
 try {
     $db = get_db();
