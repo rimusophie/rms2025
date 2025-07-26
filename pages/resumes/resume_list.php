@@ -1,28 +1,27 @@
 <?php
 
-require_once(__DIR__ . '/skill_common.php');
+require_once(__DIR__ . '/resume_common.php');
 require_once(__DIR__ . '/../../utils/db.php');
 
-$page_title_text = SkillCommon::PAGE_TITLE_LIST;
-$common_link_text = SkillCommon::PAGE_TITLE_ADD;
-$common_link_href = SkillCommon::HREF_ADD;
+$page_title_text = ResumeCommon::PAGE_TITLE_LIST;
+$common_link_text = ResumeCommon::PAGE_TITLE_ADD;
+$common_link_href = ResumeCommon::HREF_ADD;
 
-/*
 $pdo = get_db();
 $sql = '
     SELECT 
-        s.id AS s_id,
-        s.name AS s_name,
-        s.sort_no AS s_sort_no
+        r.id AS r_id,
+        r.title AS r_title,
+        r.summary AS r_summary,
+        r.start_date AS r_start_date,
+        r.end_date AS r_end_date
     FROM
-        skills AS s 
+        resumes AS r 
     ORDER BY 
-        s.sort_no ASC
+        r.start_date DESC, r.end_date DESC, r.title ASC
 ';
 $stmt = $pdo->query($sql);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-*/
-$result = SkillCommon::getSkills();
 
 ?>
 <html lang="ja">
@@ -30,7 +29,7 @@ $result = SkillCommon::getSkills();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title><?= SkillCommon::PAGE_TITLE_LIST ?></title>
+    <title><?= ResumeCommon::PAGE_TITLE_LIST ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -50,16 +49,26 @@ include(__DIR__ . '/../../includes/common_link.php');
             <div class="col">
             <table class="common-table">
                 <tr>
-                    <!-- 名称 -->
+                    <!-- 案件名 -->
                     <th>
-                        <?= SkillCommon::PAGE_ITEM_NAME ?>
+                        <?= ResumeCommon::PAGE_ITEM_TITLE ?>
                     </th>
 
-                    <!-- 表示順 -->
+                    <!-- 概要 -->
                     <th>
-                        <?= SkillCommon::PAGE_ITEM_SORT_NO ?>
+                        <?= ResumeCommon::PAGE_ITEM_SUMMARY ?>
                     </th>
 
+                    <!-- 開始日 -->
+                    <th>
+                        <?= ResumeCommon::PAGE_ITEM_START_DATE ?>
+                    </th>
+
+                    <!-- 終了日 -->
+                    <th>
+                        <?= ResumeCommon::PAGE_ITEM_END_DATE ?>
+                    </th>
+                    
                     <!-- 操作 -->
                     <th>
                         <?= Constants::PAGE_OPERATION ?>
@@ -68,19 +77,29 @@ include(__DIR__ . '/../../includes/common_link.php');
                 </tr>
 <?php foreach($result as $row): ?>
                 <tr>
-                    <!-- 名称 -->
+                    <!-- 案件名 -->
                     <td>
-                        <?= htmlspecialchars($row['s_name'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($row['r_title'], ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
-                    <!-- 表示順 -->
+                    <!-- 概要 -->
                     <td>
-                        <?= htmlspecialchars($row['s_sort_no'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($row['r_summary'], ENT_QUOTES, 'UTF-8') ?>
+                    </td>
+
+                    <!-- 開始日 -->
+                    <td>
+                        <?= htmlspecialchars($row['r_start_date'], ENT_QUOTES, 'UTF-8') ?>
+                    </td>
+
+                    <!-- 終了日 -->
+                    <td>
+                        <?= htmlspecialchars($row['r_end_date'], ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 操作 -->
                     <td>
-                        <a href="<?= SkillCommon::HREF_EDIT ?>?id=<?= urlencode($row['s_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
+                        <a href="<?= ResumeCommon::HREF_EDIT ?>?id=<?= urlencode($row['r_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
                     </td>
 
                 </tr>

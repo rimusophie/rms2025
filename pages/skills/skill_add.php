@@ -32,11 +32,13 @@ include(__DIR__ . '/../../includes/page_title.php');
             <div class="col">
             <table class="common-table">
 
+                <!-- 名称 -->
                 <tr>
                     <td><?= SkillCommon::PAGE_ITEM_NAME ?></td>
                     <td><input type="text" id="name" class="common-textbox common-width-name" name="name" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
                 </tr>
 
+                <!-- 表示順 -->
                 <tr>
                     <td><?= SkillCommon::PAGE_ITEM_SORT_NO ?></td>
                     <td><input type="number" id="sort_no" class="common-textbox" name="sort_no" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>

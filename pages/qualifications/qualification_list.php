@@ -47,15 +47,39 @@ include(__DIR__ . '/../../includes/common_link.php');
             <div class="col">
             <table class="common-table">
                 <tr>
-                    <th><?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?></th>
-                    <th><?= QualificationCommon::PAGE_ITEM_NAME ?></th>
-                    <th><?= Constants::PAGE_OPERATION ?></th>
+                    <!-- 取得日 -->
+                    <th>
+                        <?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?>
+                    </th>
+
+                    <!-- 名称 -->
+                    <th>
+                        <?= QualificationCommon::PAGE_ITEM_NAME ?>
+                    </th>
+
+                    <!-- 操作 -->
+                    <th>
+                        <?= Constants::PAGE_OPERATION ?>
+                    </th>
+
                 </tr>
 <?php foreach($result as $row): ?>
                 <tr>
-                    <td><?= htmlspecialchars($row['q_acquisition_date'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= htmlspecialchars($row['q_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><a href="<?= QualificationCommon::HREF_EDIT ?>?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a></td>
+                    <!-- 取得日 -->
+                    <td>
+                        <?= htmlspecialchars($row['q_acquisition_date'], ENT_QUOTES, 'UTF-8') ?>
+                    </td>
+
+                    <!-- 名称 -->
+                    <td>
+                        <?= htmlspecialchars($row['q_name'], ENT_QUOTES, 'UTF-8') ?>
+                    </td>
+
+                    <!-- 操作 -->
+                    <td>
+                        <a href="<?= QualificationCommon::HREF_EDIT ?>?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
+                    </td>
+
                 </tr>
 <?php endforeach; ?>
 

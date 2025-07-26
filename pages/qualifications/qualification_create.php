@@ -23,7 +23,7 @@ $common_link_href = QualificationCommon::HREF_LIST;
 
 <?php
 
-$result_msg_text = "";
+$result_msg_text = '';
 
 try{
     $pdo = get_db();
@@ -38,8 +38,8 @@ try{
         )
     ';
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':acquisition_date', $_POST["acquisition_date"], PDO::PARAM_STR);
-    $stmt->bindValue(':name', $_POST["name"], PDO::PARAM_STR);
+    $stmt->bindValue(':acquisition_date', $_POST['acquisition_date'], PDO::PARAM_STR);
+    $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
     $stmt->execute();
 
     $result_msg_text = QualificationCommon::MESSAGE_CREATE_SUCCESS;

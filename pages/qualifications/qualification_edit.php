@@ -23,7 +23,7 @@ $common_link_href = QualificationCommon::HREF_LIST;
 
 <?php
 
-$id = $_GET["id"] ?? null;
+$id = $_GET['id'] ?? null;
 
 try {
     $db = get_db();
@@ -59,6 +59,8 @@ include(__DIR__ . '/../../includes/page_title.php');
             <div class="row mt-3">
                 <div class="col">
                 <table class="common-table">
+
+                    <!-- 取得日 -->
                     <tr>
                         <td><?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?></td>
                         <td>
@@ -66,10 +68,12 @@ include(__DIR__ . '/../../includes/page_title.php');
                         </td>
                     </tr>
 
+                    <!-- 名称 -->
                     <tr>
                         <td><?= QualificationCommon::PAGE_ITEM_NAME ?></td>
                         <td><input type="text"  id="name"  class="common-textbox common-width-name" name="name" value="<?= htmlspecialchars($qualification['name'], ENT_QUOTES, 'UTF-8') ?>" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
                     </tr>
+
                 </table>
                 
                 </div>

@@ -31,11 +31,14 @@ include(__DIR__ . '/../../includes/page_title.php');
         <div class="row mt-3">
             <div class="col">
             <table class="common-table">
+                
+                <!-- 取得日 -->
                 <tr>
                     <td><?= QualificationCommon::PAGE_ITEM_ACQUISITION_DATE ?></td>
                     <td><input type="date" id="acquisition_date" class="common-textbox" name="acquisition_date"/></td>
                 </tr>
 
+                <!-- 名称 -->
                 <tr>
                     <td><?= QualificationCommon::PAGE_ITEM_NAME ?></td>
                     <td><input type="text" id="name" class="common-textbox common-width-name" name="name" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>

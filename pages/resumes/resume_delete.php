@@ -1,12 +1,11 @@
 <?php
 
-require_once(__DIR__ . '/qualification_common.php');
+require_once(__DIR__ . '/resume_common.php');
 require_once(__DIR__ . '/../../utils/db.php');
 
-$page_title_text = QualificationCommon::PAGE_TITLE_EDIT;
-$common_link_text = QualificationCommon::PAGE_TITLE_LIST;
-$common_link_href = QualificationCommon::HREF_LIST;
-
+$page_title_text = ResumeCommon::PAGE_TITLE_DELETE;
+$common_link_text = ResumeCommon::PAGE_TITLE_LIST;
+$common_link_href = ResumeCommon::HREF_LIST;
 ?>
 
 <html lang="ja">
@@ -14,7 +13,7 @@ $common_link_href = QualificationCommon::HREF_LIST;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title><?= QualificationCommon::PAGE_TITLE_EDIT ?></title>
+    <title><?= ResumeCommon::PAGE_TITLE_DELETE ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/common.css" />
@@ -30,22 +29,17 @@ try{
     $pdo = get_db();
 
     $sql = '
-        UPDATE 
-            qualifications
-        SET
-            acquisition_date = :acquisition_date,
-            name = :name
+        DELETE FROM 
+            resumes
         WHERE 
             id = :id
     ';
     
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
-    $stmt->bindValue(':acquisition_date', $_POST['acquisition_date'], PDO::PARAM_STR);
-    $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
     $stmt->execute();
 
-    $result_msg_text = QualificationCommon::MESSAGE_UPDATE_SUCCESS;
+    $result_msg_text = ResumeCommon::MESSAGE_DELETE_SUCCESS;
 } catch (PDOException $e) {
     $result_msg_text = sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
 }
