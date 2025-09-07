@@ -30,36 +30,11 @@ $resume_ids = [];
 
 <?php
 
-$id = $_GET['id'] ?? null;
+$record = [];
 
 try {
-    $db = get_db();
-    $sql = '
-        SELECT 
-            r.id AS r_id,  
-            r.title AS r_title,
-            r.summary AS r_summary,
-            r.start_date AS r_start_date,
-            r.end_date AS r_end_date,
-            rs.skill_ids AS rs_skill_ids
-        FROM 
-            resumes AS r
-            LEFT JOIN (
-                SELECT 
-                    resume_id, 
-                    GROUP_CONCAT(skill_id) AS skill_ids
-                FROM 
-                    resume_skills 
-                GROUP BY 
-                    resume_id
-            ) AS rs ON r.id = rs.resume_id
-        WHERE 
-            r.id = :id
-    ';
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    $resume = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = filter_input(INPUT_GET, Constants::HTML_NAME_ID, FILTER_VALIDATE_INT);
+    $record = IncomeCommon::get($id);
 
     $resume_ids = array_map('intval', explode(',', $resume['rs_skill_ids']));
 } catch (PDOException $e) {
@@ -76,42 +51,74 @@ include(__DIR__ . '/../../includes/page_title.php');
 ?>
 
         <form action="<?= ResumeCommon::HREF_UPDATE ?>" method="post" class="mt-3">
-            <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($resume['r_id'], ENT_QUOTES, 'UTF-8') ?>"/>
+            <input type="hidden" id="<?= Constants::HTML_NAME_ID ?>" name="<?= Constants::HTML_NAME_ID ?>" value="<?= htmlspecialchars($resume[Constants::HTML_NAME_ID], ENT_QUOTES, 'UTF-8') ?>"/>
             <div class="row mt-3">
                 <div class="col">
                 <table class="common-table">
 
                     <!-- 案件名 -->
                     <tr>
-                        <td><?= ResumeCommon::PAGE_ITEM_TITLE ?></td>
-                        <td><input type="text"  id="title"  class="common-textbox common-width-name" name="title" value="<?= htmlspecialchars($resume['r_title'], ENT_QUOTES, 'UTF-8') ?>" /></td>
+                        <td>
+                            <?= ResumeCommon::PAGE_ITEM_TITLE ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="text" 
+                                id="title" 
+                                class="common-textbox common-width-name" 
+                                name="title" 
+                                value="<?= htmlspecialchars($resume['r_title'], ENT_QUOTES, 'UTF-8') ?>" 
+                            />
+                        </td>
                     </tr>
 
                     <!-- 概要 -->
                     <tr>
-                        <td><?= ResumeCommon::PAGE_ITEM_SUMMARY ?></td>
-                        <td><textarea id="summary"  class="common-textbox common-width-name" name="summary" rows="<?= ResumeCommon::ROWS_TEXTAREA_SUMMARY ?>" cols="<?= ResumeCommon::COLS_TEXTAREA_SUMMARY ?>" ><?= htmlspecialchars($resume['r_summary'], ENT_QUOTES, 'UTF-8') ?></textarea></td>
+                        <td>
+                            <?= ResumeCommon::PAGE_ITEM_SUMMARY ?>
+                        </td>
+                        <td>
+                            <textarea id="summary"  class="common-textbox common-width-name" name="summary" rows="<?= ResumeCommon::ROWS_TEXTAREA_SUMMARY ?>" cols="<?= ResumeCommon::COLS_TEXTAREA_SUMMARY ?>" ><?= htmlspecialchars($resume['r_summary'], ENT_QUOTES, 'UTF-8') ?></textarea>
+                        </td>
                     </tr>
 
                     <!-- 開始日 -->
                     <tr>
-                        <td><?= ResumeCommon::PAGE_ITEM_START_DATE ?></td>
                         <td>
-                            <input type="date" id="start_date" class="common-textbox" name="start_date" value="<?= htmlspecialchars($resume['r_start_date'], ENT_QUOTES, 'UTF-8') ?>"/>
+                            <?= ResumeCommon::PAGE_ITEM_START_DATE ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="date" 
+                                id="start_date" 
+                                class="common-textbox" 
+                                name="start_date" 
+                                value="<?= htmlspecialchars($resume['r_start_date'], ENT_QUOTES, 'UTF-8') ?>"
+                            />
                         </td>
                     </tr>
 
                     <!-- 終了日 -->
                     <tr>
-                        <td><?= ResumeCommon::PAGE_ITEM_END_DATE ?></td>
                         <td>
-                            <input type="date" id="end_date" class="common-textbox" name="end_date" value="<?= htmlspecialchars($resume['r_end_date'], ENT_QUOTES, 'UTF-8') ?>"/>
+                            <?= ResumeCommon::PAGE_ITEM_END_DATE ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="date" 
+                                id="end_date" 
+                                class="common-textbox" 
+                                name="end_date" 
+                                value="<?= htmlspecialchars($resume['r_end_date'], ENT_QUOTES, 'UTF-8') ?>"
+                            />
                         </td>
                     </tr>
 
                     <!-- スキル -->
                     <tr>
-                        <td><?= ResumeCommon::PAGE_ITEM_SKILLS ?></td>
+                        <td>
+                            <?= ResumeCommon::PAGE_ITEM_SKILLS ?>
+                        </td>
                         <td>
                             <select id="skills" class="common-combobox common-height-combobox" name="skills[]" multiple>
 <?php foreach($skills as $skill): ?>
@@ -136,7 +143,7 @@ include(__DIR__ . '/../../includes/page_title.php');
         </form>
 
         <form action="<?= ResumeCommon::HREF_DELETE ?>" method="post">
-            <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($resume['r_id'], ENT_QUOTES, 'UTF-8') ?>"/>
+            <input type="hidden" id="<?= Constants::HTML_NAME_ID ?>" name="<?= Constants::HTML_NAME_ID ?>" value="<?= htmlspecialchars($resume[Constants::HTML_NAME_ID], ENT_QUOTES, 'UTF-8') ?>"/>
             <div class="row mt-5">
                 <div class="col-1 text-center">
                     <button type="submit" class="w-100 h-100 common-button align-middle"><?= Constants::PAGE_DELETE ?></button>

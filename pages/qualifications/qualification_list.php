@@ -7,19 +7,14 @@ $page_title_text = QualificationCommon::PAGE_TITLE_LIST;
 $common_link_text = QualificationCommon::PAGE_TITLE_ADD;
 $common_link_href = QualificationCommon::HREF_ADD;
 
-$pdo = get_db();
-$sql = '
-    SELECT 
-        q.id AS q_id,
-        q.name AS q_name,
-        q.acquisition_date AS q_acquisition_date
-    FROM
-        qualifications AS q 
-    ORDER BY 
-        q.acquisition_date DESC
-';
-$stmt = $pdo->query($sql);
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$records = [];
+
+try {
+    $records = IncomeCommon::list();
+} catch (Exception $e) {
+    echo sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
+    exit;
+}
 
 ?>
 <html lang="ja">
@@ -77,7 +72,7 @@ include(__DIR__ . '/../../includes/common_link.php');
 
                     <!-- 操作 -->
                     <td>
-                        <a href="<?= QualificationCommon::HREF_EDIT ?>?id=<?= urlencode($row['q_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
+                        <a href="<?= QualificationCommon::HREF_EDIT ?>?id=<?= urlencode($row[Constants::HTML_NAME_ID]) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
                     </td>
 
                 </tr>

@@ -1,10 +1,10 @@
 <?php
 
-require_once(__DIR__ . '/skill_common.php');
+require_once(__DIR__ . '/lastbullet_memoria_common.php');
 
-$page_title_text = SkillCommon::PAGE_TITLE_ADD;
-$common_link_text = SkillCommon::PAGE_TITLE_LIST;
-$common_link_href = SkillCommon::HREF_LIST;
+$page_title_text = LastbulletMemoriaCommon::PAGE_TITLE_ADD;
+$common_link_text = LastbulletMemoriaCommon::PAGE_TITLE_LIST;
+$common_link_href = LastbulletMemoriaCommon::HREF_LIST;
 ?>
 
 <html lang="ja">
@@ -12,10 +12,10 @@ $common_link_href = SkillCommon::HREF_LIST;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright 2021 rimusophie">
-    <title><?= SkillCommon::PAGE_TITLE_ADD ?></title>
+    <title><?= LastbulletMemoriaCommon::PAGE_TITLE_ADD ?></title>
     <!--<link rel="icon" href="/assets/img/favicon.ico">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../assets/css/common.css" />
+    <link rel="stylesheet" href="../../../assets/css/common.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!--<script src="/assets/js/common.js"></script>-->
 </head>
@@ -23,11 +23,11 @@ $common_link_href = SkillCommon::HREF_LIST;
 <body class="common-body">
     <div class="container common-container">
 <?php 
-include(__DIR__ . '/../../includes/header.php');
-include(__DIR__ . '/../../includes/page_title.php');
+include(__DIR__ . '/../../../includes/header.php');
+include(__DIR__ . '/../../../includes/page_title.php');
 ?>
 
-        <form action="<?= SkillCommon::HREF_CREATE ?>" method="post" class="mt-3">
+        <form action="<?= LastbulletMemoriaCommon::HREF_CREATE ?>" method="post" class="mt-3">
         <div class="row mt-3">
             <div class="col">
             <table class="common-table">
@@ -35,7 +35,7 @@ include(__DIR__ . '/../../includes/page_title.php');
                 <!-- 名称 -->
                 <tr>
                     <td>
-                        <?= SkillCommon::PAGE_ITEM_NAME ?>
+                        <?= LastbulletMemoriaCommon::PAGE_ITEM_NAME ?>
                     </td>
                     <td>
                         <input 
@@ -48,20 +48,18 @@ include(__DIR__ . '/../../includes/page_title.php');
                     </td>
                 </tr>
 
-                <!-- 表示順 -->
+                <!-- 属性 -->
                 <tr>
+                    <td><?= LastbulletMemoriaCommon::PAGE_ITEM_ATTRIBUTE_TYPE ?></td>
                     <td>
-                        <?= SkillCommon::PAGE_ITEM_SORT_NO ?>
-                    </td>
-                    <td>
-                        <input 
-                            type="number" 
-                            id="sort_no" 
-                            class="common-textbox" 
-                            name="sort_no" 
-                            max="<?= Constants::INPUT_INT_MAX ?>" 
-                            min="<?= Constants::INPUT_INT_MIN ?>"
-                        />
+                        <select id="attribute_type" class="common-combobox" name="attribute_type">
+                            <option value="<?= LastbulletAttributeType::Unknown->value ?>"><?= LastbulletAttributeType::Unknown->label() ?></option>
+                            <option value="<?= LastbulletAttributeType::Fire->value ?>"><?= LastbulletAttributeType::Fire->label() ?></option>
+                            <option value="<?= LastbulletAttributeType::Water->value ?>"><?= LastbulletAttributeType::Water->label() ?></option>
+                            <option value="<?= LastbulletAttributeType::Wind->value ?>"><?= LastbulletAttributeType::Wind->label() ?></option>
+                            <option value="<?= LastbulletAttributeType::Light->value ?>"><?= LastbulletAttributeType::Light->label() ?></option>
+                            <option value="<?= LastbulletAttributeType::Dark->value ?>"><?= LastbulletAttributeType::Dark->label() ?></option>
+                        </select>
                     </td>
                 </tr>
 
@@ -76,8 +74,8 @@ include(__DIR__ . '/../../includes/page_title.php');
             </div>
         </form>
 <?php 
-include(__DIR__ . '/../../includes/common_link.php');
-include(__DIR__ . '/../../includes/footer.php');
+include(__DIR__ . '/../../../includes/common_link.php');
+include(__DIR__ . '/../../../includes/footer.php');
 ?>
     </div>
 </body>

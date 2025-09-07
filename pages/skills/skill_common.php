@@ -20,6 +20,9 @@ class SkillCommon {
     const PAGE_ITEM_NAME = '名称';
     const PAGE_ITEM_SORT_NO = '表示順';
 
+    const HTML_NAME_NAME = 'name';
+    const HTML_NAME_SORT_NO = 'sort_no';
+
     /**
      * メッセージ
      */
@@ -68,6 +71,111 @@ class SkillCommon {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $result;
+    }
+
+    public static function list(): array {
+        $pdo = get_db();
+        $sql = '
+            SELECT 
+                s.id AS id,
+                s.name AS name,
+                s.sort_no AS sort_no
+            FROM
+                skills AS s 
+            ORDER BY 
+                s.sort_no ASC,
+                s.name ASC
+        ';
+        $stmt = $pdo->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $result;
+    }
+
+    public static function get(int $id): ?array {
+        $pdo = get_db();
+        $sql = '
+            SELECT 
+                s.id AS id,  
+                s.name AS name,
+                s.sort_no AS sort_no
+            FROM 
+                skills AS s
+            WHERE 
+                id = :id
+        ';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $skill = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function create(string $receive_date,
+                                    int $type,
+                                    int $total_amount_paid,
+                                    int $income_tax,
+                                    int $resident_tax,
+                                    int $social_insurance_premiums,
+                                    int $other,
+                                    string $payer): void {
+        $pdo = get_db();
+
+        $sql = '
+            INSERT INTO skills (
+                name,
+                sort_no
+            ) VALUES (
+                :name,
+                :sort_no
+            )
+        ';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':sort_no', $_POST['sort_no'], PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public static function update(int $id, 
+                                    string $receive_date,
+                                    int $type,
+                                    int $total_amount_paid,
+                                    int $income_tax,
+                                    int $resident_tax,
+                                    int $social_insurance_premiums,
+                                    int $other,
+                                    string $payer): void {
+        $pdo = get_db();
+
+        $sql = '
+            UPDATE 
+                skills
+            SET
+                name = :name,
+                sort_no = :sort_no
+            WHERE 
+                id = :id
+        ';
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
+        $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':sort_no', $_POST['sort_no'], PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public static function delete(int $id): void {
+        $pdo = get_db();
+
+        $sql = '
+            DELETE FROM 
+                skills
+            WHERE 
+                id = :id
+        ';
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $_POST[Constants::HTML_NAME_ID], PDO::PARAM_INT);
+        $stmt->execute();
     }
 }
 

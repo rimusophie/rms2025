@@ -26,21 +26,24 @@ $common_link_href = QualificationCommon::HREF_LIST;
 $result_msg_text = '';
 
 try{
-    $pdo = get_db();
+    $receive_date = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RECEIVE_DATE, FILTER_SANITIZE_STRING);
+    $type = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TYPE, FILTER_VALIDATE_INT);
+    $total_amount_paid = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID, FILTER_VALIDATE_INT);
+    $income_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_INCOME_TAX, FILTER_VALIDATE_INT);
+    $resident_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RESIDENT_TAX, FILTER_VALIDATE_INT);
+    $social_insurance_premiums = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS, FILTER_VALIDATE_INT);
+    $other = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_OTHER, FILTER_VALIDATE_INT);
+    $payer = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_PAYER, FILTER_SANITIZE_STRING);
 
-    $sql = '
-        INSERT INTO qualifications (
-            acquisition_date,
-            name
-        ) VALUES (
-            :acquisition_date,
-            :name
-        )
-    ';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':acquisition_date', $_POST['acquisition_date'], PDO::PARAM_STR);
-    $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
-    $stmt->execute();
+    IncomeCommon::create($receive_date,
+                              $type,
+                              $total_amount_paid,
+                              $income_tax,
+                              $resident_tax,
+                              $social_insurance_premiums,
+                              $other,
+                              $payer
+    );
 
     $result_msg_text = QualificationCommon::MESSAGE_CREATE_SUCCESS;
 } catch (PDOException $e) {

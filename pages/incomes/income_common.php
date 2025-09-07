@@ -27,6 +27,16 @@ class IncomeCommon {
     const PAGE_ITEM_DISPOSABLE_INCOME = '差引';
     const PAGE_ITEM_PAYER = '支払者';
 
+    const HTML_NAME_RECEIVE_DATE = 'receive_date';
+    const HTML_NAME_TYPE = 'type';
+    const HTML_NAME_TOTAL_AMOUNT_PAID = 'total_amount_paid';
+    const HTML_NAME_INCOME_TAX = 'income_tax';
+    const HTML_NAME_RESIDENT_TAX = 'resident_tax';
+    const HTML_NAME_SOCIAL_INSURANCE_PREMIUMS = 'social_insurance_premiums';
+    const HTML_NAME_OTHER = 'other';
+    const HTML_NAME_DISPOSABLE_INCOME = 'disposable_income';
+    const HTML_NAME_PAYER = 'payer';
+
     /**
      * メッセージ
      */
@@ -53,6 +63,152 @@ class IncomeCommon {
     const HREF_CREATE = Constants::PATH_CURRENT . self::FILE_CREATE;
     const HREF_UPDATE = Constants::PATH_CURRENT . self::FILE_UPDATE;
     const HREF_DELETE = Constants::PATH_CURRENT . self::FILE_DELETE;
+
+    public static function list(): array {
+        $pdo = get_db();
+        $sql = '
+            SELECT 
+                i.id AS id,
+                i.receive_date AS receive_date,
+                i.type AS type,
+                i.total_amount_paid AS total_amount_paid,
+                i.income_tax AS income_tax,
+                i.resident_tax AS resident_tax,
+                i.social_insurance_premiums AS social_insurance_premiums,
+                i.other AS other,
+                i.total_amount_paid - i.income_tax - i.resident_tax - i.social_insurance_premiums + i.other AS disposable_income,
+                i.payer AS payer
+            FROM
+                incomes AS i 
+            ORDER BY 
+                i.receive_date DESC
+        ';
+        $stmt = $pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function get(int $id): ?array {
+        $pdo = get_db();
+        $sql = '
+            SELECT 
+                i.id AS id, 
+                i.receive_date AS receive_date, 
+                i.type AS type, 
+                i.total_amount_paid AS total_amount_paid, 
+                i.income_tax AS income_tax, 
+                i.resident_tax AS resident_tax, 
+                i.social_insurance_premiums AS social_insurance_premiums, 
+                i.other AS other, 
+                i.payer AS payer 
+            FROM 
+                incomes AS i
+            WHERE i.id = :id
+        ';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function create(string $receive_date,
+                                    int $type,
+                                    int $total_amount_paid,
+                                    int $income_tax,
+                                    int $resident_tax,
+                                    int $social_insurance_premiums,
+                                    int $other,
+                                    string $payer): void {
+        $pdo = get_db();
+
+        $sql = '
+            INSERT INTO incomes 
+            (
+                receive_date,
+                type,
+                total_amount_paid,
+                income_tax,
+                resident_tax,
+                social_insurance_premiums,
+                other,
+                payer
+            ) VALUES (
+                :receive_date,
+                :type,
+                :total_amount_paid,
+                :income_tax,
+                :resident_tax,
+                :social_insurance_premiums,
+                :other,
+                :payer
+            )'
+        ;
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':receive_date', $receive_date, PDO::PARAM_STR);
+        $stmt->bindValue(':type', $type, PDO::PARAM_INT);
+        $stmt->bindValue(':total_amount_paid', $total_amount_paid, PDO::PARAM_INT);
+        $stmt->bindValue(':income_tax', $income_tax, PDO::PARAM_INT);
+        $stmt->bindValue(':resident_tax', $resident_tax, PDO::PARAM_INT);
+        $stmt->bindValue(':social_insurance_premiums', $social_insurance_premiums, PDO::PARAM_INT);
+        $stmt->bindValue(':other', $other, PDO::PARAM_INT);
+        $stmt->bindValue(':payer', $payer, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public static function update(int $id, 
+                                    string $receive_date,
+                                    int $type,
+                                    int $total_amount_paid,
+                                    int $income_tax,
+                                    int $resident_tax,
+                                    int $social_insurance_premiums,
+                                    int $other,
+                                    string $payer): void {
+        $pdo = get_db();
+
+        $sql = '
+            UPDATE 
+                incomes
+            SET
+                receive_date = :receive_date,
+                type = :type,
+                total_amount_paid = :total_amount_paid,
+                income_tax = :income_tax,
+                resident_tax = :resident_tax,
+                social_insurance_premiums = :social_insurance_premiums,
+                other = :other,
+                payer = :payer
+            WHERE 
+                id = :id
+        ';
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':receive_date', $receive_date, PDO::PARAM_STR);
+        $stmt->bindValue(':type', $type, PDO::PARAM_INT);
+        $stmt->bindValue(':total_amount_paid', $total_amount_paid, PDO::PARAM_INT);
+        $stmt->bindValue(':income_tax', $income_tax, PDO::PARAM_INT);
+        $stmt->bindValue(':resident_tax', $resident_tax, PDO::PARAM_INT);
+        $stmt->bindValue(':social_insurance_premiums', $social_insurance_premiums, PDO::PARAM_INT);
+        $stmt->bindValue(':other', $other, PDO::PARAM_INT);
+        $stmt->bindValue(':payer', $payer, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public static function delete(int $id): void {
+        $pdo = get_db();
+
+        $sql = '
+            DELETE FROM 
+                incomes
+            WHERE 
+                id = :id
+        ';
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
 
 /**

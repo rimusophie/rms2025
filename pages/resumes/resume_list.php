@@ -7,21 +7,14 @@ $page_title_text = ResumeCommon::PAGE_TITLE_LIST;
 $common_link_text = ResumeCommon::PAGE_TITLE_ADD;
 $common_link_href = ResumeCommon::HREF_ADD;
 
-$pdo = get_db();
-$sql = '
-    SELECT 
-        r.id AS r_id,
-        r.title AS r_title,
-        r.summary AS r_summary,
-        r.start_date AS r_start_date,
-        r.end_date AS r_end_date
-    FROM
-        resumes AS r 
-    ORDER BY 
-        r.start_date DESC, r.end_date DESC, r.title ASC
-';
-$stmt = $pdo->query($sql);
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$records = [];
+
+try {
+    $records = IncomeCommon::list();
+} catch (Exception $e) {
+    echo sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
+    exit;
+}
 
 ?>
 <html lang="ja">
@@ -99,7 +92,7 @@ include(__DIR__ . '/../../includes/common_link.php');
 
                     <!-- 操作 -->
                     <td>
-                        <a href="<?= ResumeCommon::HREF_EDIT ?>?id=<?= urlencode($row['r_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
+                        <a href="<?= ResumeCommon::HREF_EDIT ?>?id=<?= urlencode($row[Constants::HTML_NAME_ID]) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
                     </td>
 
                 </tr>

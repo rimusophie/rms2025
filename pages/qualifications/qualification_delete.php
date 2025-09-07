@@ -26,18 +26,8 @@ $common_link_href = QualificationCommon::HREF_LIST;
 $result_msg_text = '';
 
 try{
-    $pdo = get_db();
-
-    $sql = '
-        DELETE FROM 
-            qualifications
-        WHERE 
-            id = :id
-    ';
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
-    $stmt->execute();
+    $id = filter_input(INPUT_POST, Constants::HTML_NAME_ID, FILTER_VALIDATE_INT);
+    IncomeCommon::delete($id);
 
     $result_msg_text = QualificationCommon::MESSAGE_DELETE_SUCCESS;
 } catch (PDOException $e) {

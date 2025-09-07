@@ -26,35 +26,26 @@ $common_link_href = IncomeCommon::HREF_LIST;
 $result_msg_text = '';
 
 try {
-    $pdo = get_db();
+    $id = filter_input(INPUT_POST, Constants::HTML_NAME_ID, FILTER_VALIDATE_INT);
+    $receive_date = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RECEIVE_DATE, FILTER_SANITIZE_STRING);
+    $type = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TYPE, FILTER_VALIDATE_INT);
+    $total_amount_paid = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID, FILTER_VALIDATE_INT);
+    $income_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_INCOME_TAX, FILTER_VALIDATE_INT);
+    $resident_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RESIDENT_TAX, FILTER_VALIDATE_INT);
+    $social_insurance_premiums = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS, FILTER_VALIDATE_INT);
+    $other = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_OTHER, FILTER_VALIDATE_INT);
+    $payer = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_PAYER, FILTER_SANITIZE_STRING);
 
-    $sql = '
-        UPDATE 
-            incomes
-        SET
-            receive_date = :receive_date,
-            type = :type,
-            total_amount_paid = :total_amount_paid,
-            income_tax = :income_tax,
-            resident_tax = :resident_tax,
-            social_insurance_premiums = :social_insurance_premiums,
-            other = :other,
-            payer = :payer
-        WHERE 
-            id = :id
-    ';
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
-    $stmt->bindValue(':receive_date', $_POST['receive_date'], PDO::PARAM_STR);
-    $stmt->bindValue(':type', $_POST['type'], PDO::PARAM_INT);
-    $stmt->bindValue(':total_amount_paid', $_POST['total_amount_paid'], PDO::PARAM_INT);
-    $stmt->bindValue(':income_tax', $_POST['income_tax'], PDO::PARAM_INT);
-    $stmt->bindValue(':resident_tax', $_POST['resident_tax'], PDO::PARAM_INT);
-    $stmt->bindValue(':social_insurance_premiums', $_POST['social_insurance_premiums'], PDO::PARAM_INT);
-    $stmt->bindValue(':other', $_POST['other'], PDO::PARAM_INT);
-    $stmt->bindValue(':payer', $_POST['payer'], PDO::PARAM_STR);
-    $stmt->execute();
+    IncomeCommon::update($id,
+                               $receive_date,
+                               $type,
+                               $total_amount_paid,
+                               $income_tax,
+                               $resident_tax,
+                               $social_insurance_premiums,
+                               $other,
+                               $payer
+    );
 
     $result_msg_text = IncomeCommon::MESSAGE_UPDATE_SUCCESS;
 } catch (PDOException $e) {

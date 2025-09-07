@@ -9,26 +9,14 @@ $common_link_href = IncomeCommon::HREF_ADD;
 
 $id_to_type = IncomeType::toSelectOptions();
 
-$pdo = get_db();
-$sql = '
-    SELECT 
-        i.id AS i_id,
-        i.receive_date AS i_receive_date,
-        i.type AS i_type,
-        i.total_amount_paid AS i_total_amount_paid,
-        i.income_tax AS i_income_tax,
-        i.resident_tax AS i_resident_tax,
-        i.social_insurance_premiums AS i_social_insurance_premiums,
-        i.other AS i_other,
-        i.total_amount_paid - i.income_tax - i.resident_tax - i.social_insurance_premiums + i.other AS i_disposable_income,
-        i.payer AS i_payer
-    FROM
-        incomes AS i 
-    ORDER BY 
-        i.receive_date DESC
-';
-$stmt = $pdo->query($sql);
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$records = [];
+
+try {
+    $records = IncomeCommon::list();
+} catch (Exception $e) {
+    echo sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
+    exit;
+}
 
 ?>
 <html lang="ja">
@@ -106,56 +94,56 @@ include(__DIR__ . '/../../includes/common_link.php');
                         <?= Constants::PAGE_OPERATION ?>
                     </th>
                 </tr>
-<?php foreach($result as $row): ?>
+<?php foreach($records as $record): ?>
                 <tr>
                     <!-- 日付 -->
                     <td>
-                        <?= htmlspecialchars($row['i_receive_date'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($record[IncomeCommon::HTML_NAME_RECEIVE_DATE], ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 種別 -->
                     <td>
-                        <?= htmlspecialchars($id_to_type[$row['i_type']], ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($id_to_type[$record[IncomeCommon::HTML_NAME_TYPE]], ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 総支給額 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_total_amount_paid']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 所得税 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_income_tax']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_INCOME_TAX]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 住民税 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_resident_tax']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_RESIDENT_TAX]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 社会保険料 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_social_insurance_premiums']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- その他 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_other']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_OTHER]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 可処分所得 -->
                     <td class="text-end">
-                        <?= htmlspecialchars(number_format($row['i_disposable_income']), ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars(number_format($record[IncomeCommon::HTML_NAME_DISPOSABLE_INCOME]), ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 支払者 -->
                     <td>
-                        <?= htmlspecialchars($row['i_payer'], ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($record[IncomeCommon::HTML_NAME_PAYER], ENT_QUOTES, 'UTF-8') ?>
                     </td>
 
                     <!-- 編集 -->
                     <td>
-                        <a href="<?= IncomeCommon::HREF_EDIT ?>?id=<?= urlencode($row['i_id']) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
+                        <a href="<?= IncomeCommon::HREF_EDIT ?>?id=<?= urlencode($record[Constants::HTML_NAME_ID]) ?>" class="common-link"><?= Constants::PAGE_EDIT ?></a>
                     </td>
                 </tr>
 <?php endforeach; ?>

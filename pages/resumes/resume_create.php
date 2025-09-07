@@ -26,6 +26,7 @@ $common_link_href = ResumeCommon::HREF_LIST;
 $result_msg_text = '';
 
 try{
+    /*
     $pdo = get_db();
 
     $sql = '
@@ -50,6 +51,25 @@ try{
     $stmt->bindValue(':start_date', $_POST['start_date'], PDO::PARAM_STR);
     $stmt->bindValue(':end_date', $_POST['end_date'], PDO::PARAM_STR);
     $stmt->execute();
+    */
+    $receive_date = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RECEIVE_DATE, FILTER_SANITIZE_STRING);
+    $type = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TYPE, FILTER_VALIDATE_INT);
+    $total_amount_paid = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID, FILTER_VALIDATE_INT);
+    $income_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_INCOME_TAX, FILTER_VALIDATE_INT);
+    $resident_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RESIDENT_TAX, FILTER_VALIDATE_INT);
+    $social_insurance_premiums = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS, FILTER_VALIDATE_INT);
+    $other = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_OTHER, FILTER_VALIDATE_INT);
+    $payer = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_PAYER, FILTER_SANITIZE_STRING);
+
+    IncomeCommon::create($receive_date,
+                              $type,
+                              $total_amount_paid,
+                              $income_tax,
+                              $resident_tax,
+                              $social_insurance_premiums,
+                              $other,
+                              $payer
+    );
 
     // スキルの登録
     if (isset($_POST['skills']) && is_array($_POST['skills'])) {

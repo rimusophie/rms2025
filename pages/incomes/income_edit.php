@@ -24,29 +24,11 @@ $common_link_href = IncomeCommon::HREF_LIST;
 
 <?php
 
-$id = $_GET['id'] ?? null;
+$record = [];
 
 try {
-    $db = get_db();
-    $sql = '
-        SELECT 
-            id, 
-            receive_date, 
-            type, 
-            total_amount_paid, 
-            income_tax, 
-            resident_tax, 
-            social_insurance_premiums, 
-            other, 
-            payer 
-        FROM 
-            incomes 
-        WHERE id = :id
-    ';
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    $income = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = filter_input(INPUT_GET, Constants::HTML_NAME_ID, FILTER_VALIDATE_INT);
+    $record = IncomeCommon::get($id);
 } catch (PDOException $e) {
     echo sprintf("%s\n%s", Constants::MESSAGE_ERROR, $e->getMessage());
     exit;
@@ -61,64 +43,148 @@ include(__DIR__ . '/../../includes/page_title.php');
 ?>
 
         <form action="<?= IncomeCommon::HREF_UPDATE ?>" method="post" class="mt-3">
-            <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($income['id'], ENT_QUOTES, 'UTF-8') ?>"/>
+            <input 
+                type="hidden" 
+                id="<?= Constants::HTML_NAME_ID ?>" 
+                name="<?= Constants::HTML_NAME_ID ?>" 
+                value="<?= htmlspecialchars($record[Constants::HTML_NAME_ID], ENT_QUOTES, 'UTF-8') ?>"
+            />
             <div class="row mt-3">
                 <div class="col">
                 <table class="common-table">
                     <!-- 日付 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_RECEIVE_DATE ?></td>
                         <td>
-                            <input type="date" id="receive_date" class="common-textbox" name="receive_date" value="<?= htmlspecialchars($income['receive_date'], ENT_QUOTES, 'UTF-8') ?>"/>
+                            <?= IncomeCommon::PAGE_ITEM_RECEIVE_DATE ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="date" 
+                                id="<?= IncomeCommon::HTML_NAME_RECEIVE_DATE ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_RECEIVE_DATE ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_RECEIVE_DATE], ENT_QUOTES, 'UTF-8') ?>"
+                            />
                         </td>
                     </tr>
 
                     <!-- 種別 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_TYPE ?></td>
                         <td>
-                            <select id="type" class="common-combobox" name="type" value="<?= htmlspecialchars($income['type'], ENT_QUOTES, 'UTF-8') ?>">
-                                <option value="<?= IncomeType::Unknown->value ?>" <?= $income['type'] == 0 ? 'selected' : '' ?>><?= IncomeType::Unknown->label() ?></option>
-                                <option value="<?= IncomeType::MonthlySalary->value ?>" <?= $income['type'] == 1 ? 'selected' : '' ?>><?= IncomeType::MonthlySalary->label() ?></option>
-                                <option value="<?= IncomeType::Bonus->value ?>" <?= $income['type'] == 2 ? 'selected' : '' ?>><?= IncomeType::Bonus->label() ?></option>
+                            <?= IncomeCommon::PAGE_ITEM_TYPE ?>
+                        </td>
+                        <td>
+                            <select id=<?= IncomeCommon::HTML_NAME_TYPE ?>" class="common-combobox" name="<?= IncomeCommon::HTML_NAME_TYPE ?>" value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_TYPE], ENT_QUOTES, 'UTF-8') ?>">
+                                <option value="<?= IncomeType::Unknown->value ?>" <?= $record['type'] == 0 ? 'selected' : '' ?>><?= IncomeType::Unknown->label() ?></option>
+                                <option value="<?= IncomeType::MonthlySalary->value ?>" <?= $record['type'] == 1 ? 'selected' : '' ?>><?= IncomeType::MonthlySalary->label() ?></option>
+                                <option value="<?= IncomeType::Bonus->value ?>" <?= $record['type'] == 2 ? 'selected' : '' ?>><?= IncomeType::Bonus->label() ?></option>
                             </select>
                         </td>
                     </tr>
 
                     <!-- 総支給額 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_TOTAL_AMOUNT_PAID ?></td>
-                        <td><input type="number" id="total_amount_paid" class="common-textbox" name="total_amount_paid" value="<?= htmlspecialchars($income['total_amount_paid'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_TOTAL_AMOUNT_PAID ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                id="<?= IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID], ENT_QUOTES, 'UTF-8') ?>" 
+                                max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"
+                            />
+                        </td>
                     </tr>
 
                     <!-- 所得税 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_INCOME_TAX ?></td>
-                        <td><input type="number"  id="income_tax"  class="common-textbox" name="income_tax" value="<?= htmlspecialchars($income['income_tax'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_INCOME_TAX ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                id="<?= IncomeCommon::HTML_NAME_INCOME_TAX ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_INCOME_TAX ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_INCOME_TAX], ENT_QUOTES, 'UTF-8') ?>" 
+                                max="<?= Constants::INPUT_INT_MAX ?>" 
+                                min="<?= Constants::INPUT_INT_MIN ?>"
+                            />
+                        </td>
                     </tr>
 
                     <!-- 住民税 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_RESIDENT_TAX ?></td>
-                        <td><input type="number"  id="resident_tax"  class="common-textbox" name="resident_tax" value="<?= htmlspecialchars($income['resident_tax'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_RESIDENT_TAX ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                id="<?= IncomeCommon::HTML_NAME_RESIDENT_TAX ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_RESIDENT_TAX ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_RESIDENT_TAX], ENT_QUOTES, 'UTF-8') ?>" 
+                                max="<?= Constants::INPUT_INT_MAX ?>" 
+                                min="<?= Constants::INPUT_INT_MIN ?>"
+                            />
+                        </td>
                     </tr>
 
                     <!-- 社会保険料 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS ?></td>
-                        <td><input type="number"  id="social_insurance_premiums"  class="common-textbox" name="social_insurance_premiums" value="<?= htmlspecialchars($income['social_insurance_premiums'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_SOCIAL_INSURANCE_PREMIUMS ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                id="<?= IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS], ENT_QUOTES, 'UTF-8') ?>" 
+                                max="<?= Constants::INPUT_INT_MAX ?>" 
+                                min="<?= Constants::INPUT_INT_MIN ?>"/>
+                        </td>
                     </tr>
 
                     <!-- その他 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_OTHER ?></td>
-                        <td><input type="number"  id="other"  class="common-textbox" name="other" value="<?= htmlspecialchars($income['other'], ENT_QUOTES, 'UTF-8') ?>" max="<?= Constants::INPUT_INT_MAX ?>" min="<?= Constants::INPUT_INT_MIN ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_OTHER ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                id="<?= IncomeCommon::HTML_NAME_OTHER ?>" 
+                                class="common-textbox" 
+                                name="<?= IncomeCommon::HTML_NAME_OTHER ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_OTHER], ENT_QUOTES, 'UTF-8') ?>" 
+                                max="<?= Constants::INPUT_INT_MAX ?>" 
+                                min="<?= Constants::INPUT_INT_MIN ?>"
+                            />
+                        </td>
                     </tr>
 
                     <!-- 支払者 -->
                     <tr>
-                        <td><?= IncomeCommon::PAGE_ITEM_PAYER ?></td>
-                        <td><input type="text"  id="payer"  class="common-textbox common-width-name" name="payer" value="<?= htmlspecialchars($income['payer'], ENT_QUOTES, 'UTF-8') ?>" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
+                        <td>
+                            <?= IncomeCommon::PAGE_ITEM_PAYER ?>
+                        </td>
+                        <td>
+                            <input 
+                                type="text" 
+                                id="<?= IncomeCommon::HTML_NAME_PAYER ?>" 
+                                class="common-textbox common-width-name" 
+                                name="<?= IncomeCommon::HTML_NAME_PAYER ?>" 
+                                value="<?= htmlspecialchars($record[IncomeCommon::HTML_NAME_PAYER], ENT_QUOTES, 'UTF-8') ?>" 
+                                maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"
+                            />
+                        </td>
                     </tr>
                 </table>
                 
@@ -132,7 +198,12 @@ include(__DIR__ . '/../../includes/page_title.php');
         </form>
 
         <form action="<?= IncomeCommon::HREF_DELETE ?>" method="post">
-            <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($income['id'], ENT_QUOTES, 'UTF-8') ?>"/>
+            <input 
+                type="hidden" 
+                id="<?= Constants::HTML_NAME_ID ?>" 
+                name="<?= Constants::HTML_NAME_ID ?>" 
+                value="<?= htmlspecialchars($record[Constants::HTML_NAME_ID], ENT_QUOTES, 'UTF-8') ?>"
+            />
             <div class="row mt-5">
                 <div class="col-1 text-center">
                     <button type="submit" class="w-100 h-100 common-button align-middle"><?= Constants::PAGE_DELETE ?></button>

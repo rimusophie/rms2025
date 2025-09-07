@@ -40,31 +40,65 @@ include(__DIR__ . '/../../includes/page_title.php');
 
                 <!-- 案件名 -->
                 <tr>
-                    <td><?= ResumeCommon::PAGE_ITEM_TITLE ?></td>
-                    <td><input type="text" id="title" class="common-textbox common-width-name" name="title" maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"/></td>
+                    <td>
+                        <?= ResumeCommon::PAGE_ITEM_TITLE ?>
+                    </td>
+                    <td>
+                        <input 
+                            type="text" 
+                            id="title" 
+                            class="common-textbox common-width-name" 
+                            name="title" 
+                            maxlength="<?= Constants::INPUT_NAME_MAX_LENGTH ?>"
+                        />
+                    </td>
                 </tr>
 
                 <!-- 概要 -->
                 <tr>
-                    <td><?= ResumeCommon::PAGE_ITEM_SUMMARY ?></td>
-                    <td><textarea id="summary" class="common-textbox common-width-name" name="summary" rows="<?= ResumeCommon::ROWS_TEXTAREA_SUMMARY ?>" cols="<?= ResumeCommon::COLS_TEXTAREA_SUMMARY ?>"></textarea></td>
+                    <td>
+                        <?= ResumeCommon::PAGE_ITEM_SUMMARY ?>
+                    </td>
+                    <td>
+                        <textarea id="summary" class="common-textbox common-width-name" name="summary" rows="<?= ResumeCommon::ROWS_TEXTAREA_SUMMARY ?>" cols="<?= ResumeCommon::COLS_TEXTAREA_SUMMARY ?>"></textarea>
+                    </td>
                 </tr>
 
                 <!-- 開始日 -->
                 <tr>
-                    <td><?= ResumeCommon::PAGE_ITEM_START_DATE ?></td>
-                    <td><input type="date" id="start_date" class="common-textbox" name="start_date"/></td>
+                    <td>
+                        <?= ResumeCommon::PAGE_ITEM_START_DATE ?>
+                    </td>
+                    <td>
+                        <input 
+                            type="date" 
+                            id="start_date" 
+                            class="common-textbox" 
+                            name="start_date"
+                        />
+                    </td>
                 </tr>
 
                 <!-- 終了日 -->
                 <tr>
-                    <td><?= ResumeCommon::PAGE_ITEM_END_DATE ?></td>
-                    <td><input type="date" id="end_date" class="common-textbox" name="end_date"/></td>
+                    <td>
+                        <?= ResumeCommon::PAGE_ITEM_END_DATE ?>
+                    </td>
+                    <td>
+                        <input 
+                            type="date" 
+                            id="end_date" 
+                            class="common-textbox" 
+                            name="end_date"
+                        />
+                    </td>
                 </tr>
 
                 <!-- スキル -->
                 <tr>
-                    <td><?= ResumeCommon::PAGE_ITEM_SKILLS ?></td>
+                    <td>
+                        <?= ResumeCommon::PAGE_ITEM_SKILLS ?>
+                    </td>
                     <td>
                         <select id="skills" class="common-combobox common-height-combobox" name="skills[]" multiple>
 <?php foreach($skills as $skill): ?>

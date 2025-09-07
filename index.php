@@ -31,6 +31,9 @@ include(__DIR__ . '/includes/header.php');
                 <li><a href="./pages/qualifications/qualification_list.php" class="common-link"><?= Constants::KIND_QUALIFICATION . Constants::PAGE_LIST ?></a></li>
                 <li><a href="./pages/skills/skill_list.php" class="common-link"><?= Constants::KIND_SKILL . Constants::PAGE_LIST ?></a></li>
                 <li><a href="./pages/resumes/resume_list.php" class="common-link"><?= Constants::KIND_RESUME . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/lastbullet/lastbullet_memories/lastbullet_memoria_list.php" class="common-link"><?= Constants::KIND_LASTBULLET_MEMORIA . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/lastbullet/lastbullet_skills/lastbullet_skill_list.php" class="common-link"><?= Constants::KIND_LASTBULLET_SKILL . Constants::PAGE_LIST ?></a></li>
+                <li><a href="./pages/lastbullet/lastbullet_battle_records/lastbullet_battle_record_list.php" class="common-link"><?= Constants::KIND_LASTBULLET_BATTLE_RECORD . Constants::PAGE_LIST ?></a></li>
             </ul>
         </div>
     </div>

@@ -27,23 +27,26 @@ $common_link_href = SkillCommon::HREF_LIST;
 $result_msg_text = '';
 
 try{
-    $pdo = get_db();
+    $id = filter_input(INPUT_POST, Constants::HTML_NAME_ID, FILTER_VALIDATE_INT);
+    $receive_date = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RECEIVE_DATE, FILTER_SANITIZE_STRING);
+    $type = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TYPE, FILTER_VALIDATE_INT);
+    $total_amount_paid = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_TOTAL_AMOUNT_PAID, FILTER_VALIDATE_INT);
+    $income_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_INCOME_TAX, FILTER_VALIDATE_INT);
+    $resident_tax = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_RESIDENT_TAX, FILTER_VALIDATE_INT);
+    $social_insurance_premiums = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_SOCIAL_INSURANCE_PREMIUMS, FILTER_VALIDATE_INT);
+    $other = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_OTHER, FILTER_VALIDATE_INT);
+    $payer = filter_input(INPUT_POST, IncomeCommon::HTML_NAME_PAYER, FILTER_SANITIZE_STRING);
 
-    $sql = '
-        UPDATE 
-            skills
-        SET
-            name = :name,
-            sort_no = :sort_no
-        WHERE 
-            id = :id
-    ';
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
-    $stmt->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
-    $stmt->bindValue(':sort_no', $_POST['sort_no'], PDO::PARAM_INT);
-    $stmt->execute();
+    IncomeCommon::update($id,
+                               $receive_date,
+                               $type,
+                               $total_amount_paid,
+                               $income_tax,
+                               $resident_tax,
+                               $social_insurance_premiums,
+                               $other,
+                               $payer
+    );
 
     $result_msg_text = SkillCommon::MESSAGE_UPDATE_SUCCESS;
 } catch (PDOException $e) {
